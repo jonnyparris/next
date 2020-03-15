@@ -1,5 +1,6 @@
 import { ref, Ref, watch, computed } from '@vue/composition-api';
 import { UseUser } from '@vue-storefront/interfaces';
+import { userHelpers, unwrap } from './../getters';
 import {
   Customer,
   CustomerSignMeUpDraft,
@@ -49,6 +50,18 @@ export default function useUser(): UseUser<Customer, any> {
     loading.value = false;
   });
 
+  const userGetters = {
+    getFirstName: (user: Ref<Customer> | Customer) => {
+      return computed(() => userHelpers.getFirstName(unwrap(user).value));
+    },
+    getLastName: (user: Ref<Customer> | Customer): Ref<Readonly<string>> => {
+      return computed(() => userHelpers.getLastName(unwrap(user).value));
+    },
+    getFullName: (user: Ref<Customer> | Customer): Ref<Readonly<string>> => {
+      return computed(() => userHelpers.getFullName(unwrap(user).value));
+    }
+  };
+
   const updateUser = async (params: any) => {
     console.log(params);
   };
@@ -84,6 +97,7 @@ export default function useUser(): UseUser<Customer, any> {
 
   return {
     user: computed(() => user.value),
+    userGetters,
     updateUser,
     register,
     login,

@@ -135,8 +135,8 @@
               v-for="(product, i) in products"
               :key="i"
               :title="getProductName(product)"
-              :image="getProductGallery(product)[0].big"
               :regular-price="'$' + getProductPrice(product)"
+              :image="getProductGallery(product)[0].big"
               :max-rating="5"
               :score-rating="3"
               :isOnWishlist="false"
@@ -247,16 +247,8 @@ import {
   SfLoader,
   SfColor
 } from '@storefront-ui/vue';
-import { computed, watch } from '@vue/composition-api';
-import { useCategory, useProduct } from '<%= options.composables %>';
-import {
-  getProductName,
-  getProductGallery,
-  getProductPrice,
-  getProductSlug,
-  getCategoryTree,
-  getProductVariants
-} from '<%= options.helpers %>';
+import { watch, computed } from '@vue/composition-api';
+import { getters, useCategory, useProduct } from '<%= options.composables %>';
 
 export default {
   transition: 'fade',
@@ -268,8 +260,7 @@ export default {
     );
 
     const { categories, search, loading } = useCategory('category-page');
-    const { products: categoryProducts, search: productsSearch, loading: productsLoading } = useProduct('category-products');
-
+    const { productGetters, products: categoryProducts, search: productsSearch, loading: productsLoading } = useProduct('category-products');
     search({ slug: lastSlug });
 
     // ugly workaround until we will have async setup
@@ -277,20 +268,19 @@ export default {
       if (categories.value.length) productsSearch({ catId: categories.value[0].id });
     });
 
-    const products = computed(() => getProductVariants(categoryProducts.value, { master: true}));
-    const categoryTree = computed(() => getCategoryTree(categories.value[0]));
+    const categoryTree = computed(() => getters.categoryHelpers.getTree(categories.value[0]));
 
     const getCategoryUrl = (slug) => `/c/${params.slug_1}/${slug}`;
     const isCategorySelected = (slug) => slug === (categories.value && categories.value[0].slug);
 
     return {
-      products,
-      productsLoading,
       categoryTree,
-      getProductName,
-      getProductGallery,
-      getProductPrice,
-      getProductSlug,
+      productsLoading,
+      products: productGetters.getVariants(categoryProducts, { master: true}),
+      getProductName: product => productGetters.getName(product).value,
+      getProductGallery: product => productGetters.getGallery(product).value,
+      getProductPrice: product => productGetters.getPrice(product).value,
+      getProductSlug: product => productGetters.getSlug(product).value,
       getCategoryUrl,
       isCategorySelected,
       loading

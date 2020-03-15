@@ -222,35 +222,24 @@ import {
   SfReview,
   SfBreadcrumbs
 } from '@storefront-ui/vue';
-
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
 import { ref, computed } from '@vue/composition-api';
-import { useProduct, useCart } from '<%= options.composables %>';
-import {
-  getProductVariants,
-  getProductName,
-  getProductGallery,
-  getProductPrice,
-  getProductAttributes
-} from '<%= options.helpers %>';
-
+import { getters, useProduct, useCart } from '<%= options.composables %>';
 export default {
   name: 'Product',
   transition: 'fade',
   setup(props, context) {
     const qty = ref(1);
     const { slug } = context.root.$route.params;
-    const { products, search } = useProduct('product-page');
+    const { productGetters, products, search } = useProduct('product-page');
+    const { getVariants, getAttributes} = getters.productHelpers;
     const { addToCart, loading } = useCart();
-
     search({ slug });
-
-    const product = computed(() => getProductVariants(products.value, { master: true,
+    const product = computed(() => getVariants(products.value, { master: true,
       attributes: context.root.$route.query })[0]);
-    const options = computed(() => getProductAttributes(products.value, ['color', 'size']));
-    const configuration = computed(() => getProductAttributes(product.value, ['color', 'size']));
-
+    const options = computed(() => getAttributes(products.value, ['color', 'size']));
+    const configuration = computed(() => getAttributes(product.value, ['color', 'size']));
     const updateFilter = (filter) => {
       context.root.$router.push({
         path: context.root.$route.path,
@@ -258,15 +247,14 @@ export default {
           ...filter }
       });
     };
-
     return {
       updateFilter,
       configuration,
       product,
       options,
-      getProductName,
-      getProductPrice,
-      getProductGallery,
+      getProductName: product => productGetters.getName(product).value,
+      getProductPrice: product => productGetters.getPrice(product).value,
+      getProductGallery: product => productGetters.getGallery(product).value,
       qty,
       addToCart,
       loading

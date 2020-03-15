@@ -10,12 +10,14 @@ export default function useProduct(): UseProduct<ProductVariant> {
   const products: Ref<ProductVariant[]> = ref([]);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<string> = ref(null);
+  const productGetters = {};
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const search = async (params) => {};
 
   return {
     products,
+    productGetters,
     search,
     loading,
     error

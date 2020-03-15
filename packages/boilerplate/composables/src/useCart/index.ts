@@ -24,6 +24,7 @@ const removeFromCart: RemoveFromCart = (product) => {};
 const clearCart: ClearCart = () => {};
 const applyCoupon: ApplyCoupon = () => {};
 const removeCoupon: RemoveCoupon = () => {};
+const cartGetters = {};
 
 async function loadCart() {
   // get cart id / user id from useUser or localStorage and load it to `cart` variable
@@ -40,6 +41,7 @@ export default function useCart(): UseCart<Cart, AddToCart, RemoveFromCart, Clea
     applyCoupon,
     removeFromCart,
     error,
+    cartGetters,
     loading
   };
 }

@@ -11,7 +11,7 @@
           Register / login
       </SfButton>
       <div v-else>
-        {{ getUserFullName(user) }} (
+        {{ userFullName }} (
           <SfButton
             class="sf-button--text color-secondary"
             @click="logout">
@@ -27,7 +27,6 @@
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
 import uiState from '~/assets/ui-state';
 import { useUser } from '@vue-storefront/commercetools-composables';
-import { getUserFullName } from '@vue-storefront/commercetools-helpers';
 import LocaleSelector from './LocaleSelector';
 
 const { toggleLoginModal } = uiState;
@@ -37,14 +36,13 @@ export default {
     SfButton,
     LocaleSelector },
   setup() {
-    const { isAuthenticated, logout, user } = useUser();
+    const { isAuthenticated, logout, user, userGetters } = useUser();
 
     return {
       toggleLoginModal,
       isAuthenticated,
       logout,
-      user,
-      getUserFullName
+      userFullName: userGetters.getFullName(user)
     };
   }
 };

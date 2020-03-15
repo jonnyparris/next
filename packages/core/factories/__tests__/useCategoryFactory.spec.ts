@@ -8,8 +8,8 @@ import * as vsfUtils from '@vue-storefront/utils';
 jest.mock('@vue-storefront/utils');
 const mockedUtils = vsfUtils as jest.Mocked<typeof vsfUtils>;
 
-let useCategory: (cacheId?: string) => UseCategory<any>;
-let params: UseCategoryFactoryParams<any, any>;
+let useCategory: (cacheId?: string) => UseCategory<any, any>;
+let params: UseCategoryFactoryParams<any, any, any>;
 
 function createComposable() {
   params = {
@@ -17,7 +17,7 @@ function createComposable() {
       .fn()
       .mockResolvedValueOnce({ id: 'mocked_removed_cart' })
   };
-  useCategory = useCategoryFactory<any, any>(params);
+  useCategory = useCategoryFactory<any, any, any>(params);
 }
 
 describe('[CORE - factories] useCategoryFactory', () => {

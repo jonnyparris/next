@@ -4750,6 +4750,11 @@ export type ProductUpdateAction = {
   setProductVariantKey?: Maybe<SetProductVariantKey>;
 };
 
+export type ProductVariantFilters = {
+  master?: boolean;
+  attributes?: Record<string, string>;
+}
+
 export type ProductVariant = {
   __typename?: "ProductVariant";
   id: Scalars["Int"];

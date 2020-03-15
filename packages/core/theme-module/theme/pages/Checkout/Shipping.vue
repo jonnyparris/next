@@ -84,19 +84,19 @@
       <div class="form__radio-group">
         <SfRadio
           v-for="item in shippingMethods"
-          :key="getShippingMethodName(item)"
-          :label="getShippingMethodName(item)"
-          :value="getShippingMethodId(item)"
-          :selected="getShippingMethodId(chosenShippingMethod)"
+          :key="shippingMethodName(item).value"
+          :label="getShippingMethodName(item).value"
+          :value="getShippingMethodId(item).value"
+          :selected="getShippingMethodId(chosenShippingMethod).value"
           @input="() => chosenShippingMethod = item"
           name="shippingMethod"
-          :description="getShippingMethodDescription(item)"
+          :description="getShippingMethodDescription(item).value"
           class="form__element form__radio shipping"
         >
           <template #label="{label}">
             <div class="sf-radio__label shipping__label">
               <div>{{ label }}</div>
-              <div>${{ getShippingMethodPrice(item) }}</div>
+              <div>${{ getShippingMethodPrice(item).value }}</div>
             </div>
           </template>
           <template #description="{description}">
@@ -131,13 +131,6 @@ import {
   SfSelect,
   SfRadio
 } from '@storefront-ui/vue';
-
-import {
-  getShippingMethodName,
-  getShippingMethodDescription,
-  getShippingMethodPrice,
-  getShippingMethodId
-} from '@vue-storefront/commercetools-helpers';
 import { useCheckout } from '@vue-storefront/commercetools-composables';
 
 const COUNTRIES = [
@@ -163,18 +156,25 @@ export default {
   setup(props, context) {
     context.emit('changeStep', 1);
     const {
+      checkoutGetters,
       shippingDetails,
       chosenShippingMethod,
       shippingMethods
     } = useCheckout();
+    const {
+      getShippingMethodDescription,
+      getShippingMethodPrice,
+      getShippingMethodId,
+      getShippingMethodName
+    } = checkoutGetters;
 
     return {
       shippingDetails,
       chosenShippingMethod,
       shippingMethods,
-      getShippingMethodName,
       getShippingMethodDescription,
       getShippingMethodPrice,
+      getShippingMethodName,
       getShippingMethodId,
       COUNTRIES
     };

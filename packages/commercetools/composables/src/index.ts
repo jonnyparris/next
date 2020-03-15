@@ -5,8 +5,10 @@ import useCart from './useCart';
 import useCheckout from './useCheckout';
 import useUser from './useUser';
 import useLocale from './useLocale';
+import * as getters from './getters';
 
 export {
+  getters,
   useCategory,
   useProduct,
   useCart,

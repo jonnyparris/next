@@ -3,6 +3,7 @@
 import { UseCheckout } from '@vue-storefront/interfaces';
 import { placeOrder as processOrder, getShippingMethods } from '@vue-storefront/commercetools-api';
 import { ref, Ref, watch, computed } from '@vue/composition-api';
+import { checkoutHelpers, unwrap } from '../getters';
 import { cart } from './../useCart';
 import { ShippingMethod, AddressInput, Customer } from '@vue-storefront/commercetools-api/lib/src/types/GraphQL';
 
@@ -46,6 +47,22 @@ export default function useCheckout(): UseCheckout<any, any, any, any, any, any,
     }
   });
 
+  const checkoutGetters = {
+    getShippingMethodId: (user: Ref<ShippingMethod> | ShippingMethod) => {
+      return computed(() => checkoutHelpers.getShippingMethodId(unwrap(user).value));
+    },
+    getShippingMethodName: (user: Ref<ShippingMethod> | ShippingMethod) => {
+      return computed(() => checkoutHelpers.getShippingMethodName(unwrap(user).value));
+    },
+    getShippingMethodDescription: (user: Ref<ShippingMethod> | ShippingMethod) => {
+      return computed(() => checkoutHelpers.getShippingMethodDescription(unwrap(user).value));
+    },
+
+    getShippingMethodPrice: (user: Ref<ShippingMethod> | ShippingMethod) => {
+      return computed(() => checkoutHelpers.getShippingMethodPrice(unwrap(user).value));
+    }
+  };
+
   const placeOrder = async () => {
     const orderData = {
       shippingDetails: shippingDetails.value,
@@ -60,6 +77,7 @@ export default function useCheckout(): UseCheckout<any, any, any, any, any, any,
 
   return {
     paymentMethods,
+    checkoutGetters,
     shippingMethods,
     personalDetails,
     shippingDetails,

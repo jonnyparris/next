@@ -1,15 +1,19 @@
-import { UseCategory } from '@vue-storefront/interfaces';
-import { usePersistedState } from '@vue-storefront/utils';
+import { UseCategory, UiCategory } from '@vue-storefront/interfaces';
+import { usePersistedState, unwrap } from '@vue-storefront/utils';
 import { ref, Ref, computed } from '@vue/composition-api';
 
-export type UseCategoryFactoryParams<CATEGORY, CATEGORY_SEARCH_PARAMS> = {
+export type UseCategoryFactoryParams<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS> = {
   categorySearch: (searchParams: CATEGORY_SEARCH_PARAMS) => Promise<CATEGORY[]>;
+  categoryHelpers: {
+    getProducts: (category: CATEGORY, options: any) => PRODUCTS;
+    getTree: (category: CATEGORY) => UiCategory | null;
+  };
 };
 
-export function useCategoryFactory<CATEGORY, CATEGORY_SEARCH_PARAMS>(
-  factoryParams: UseCategoryFactoryParams<CATEGORY, CATEGORY_SEARCH_PARAMS>
+export function useCategoryFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS>(
+  factoryParams: UseCategoryFactoryParams<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS>
 ) {
-  return function useCategory(cacheId?: string): UseCategory<CATEGORY> {
+  return function useCategory(cacheId?: string): UseCategory<CATEGORY, PRODUCTS> {
     const { state, persistedResource } = usePersistedState(cacheId);
     const categories: Ref<CATEGORY[]> = ref(state || []);
     const loading = ref(false);
@@ -23,8 +27,18 @@ export function useCategoryFactory<CATEGORY, CATEGORY_SEARCH_PARAMS>(
       loading.value = false;
     };
 
+    const categoryGetters = {
+      getProducts: (category: CATEGORY, options: any): Ref<Readonly<PRODUCTS>> => {
+        return computed(() => factoryParams.categoryHelpers.getProducts(unwrap(category).value, options));
+      },
+      getTree: (category: CATEGORY): Ref<Readonly<UiCategory | null>> => {
+        return computed(() => factoryParams.categoryHelpers.getTree(unwrap(category).value));
+      }
+    };
+
     return {
       search,
+      categoryGetters,
       loading: computed(() => loading.value),
       categories: computed(() => categories.value)
     };

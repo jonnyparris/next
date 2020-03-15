@@ -28,7 +28,8 @@ function createComposable() {
       updatedCart: { id: 'mocked_removed_coupon_cart' },
       updatedCoupon: null
     }),
-    isOnCart: jest.fn().mockReturnValueOnce(true)
+    isOnCart: jest.fn().mockReturnValueOnce(true),
+    cartHelpers
   };
   useCart = useCartFactory<any, any, any, any>(params);
 }

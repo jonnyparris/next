@@ -22,17 +22,7 @@ import {
   SfProductCard,
   SfSection
 } from '@storefront-ui/vue';
-
 import { useProduct } from '<%= options.composables %>';
-import {
-  getProductCategories,
-  getProductVariants,
-  getProductSlug,
-  getProductName,
-  getProductGallery,
-  getProductPrice,
-  getProductId
-} from '<%= options.helpers %>';
 
 export default {
   name: 'RelatedProducts',
@@ -49,9 +39,10 @@ export default {
   },
 
   setup({ product }) {
-    const { products, search, loading } = useProduct('related-products');
-    const categories = getProductCategories(product);
-    const relatedProducts = computed(() => getProductVariants(products.value, { masters: true }).filter((prod) => getProductId(prod) !== getProductId(product)));
+    const { productGetters, products, search, loading } = useProduct('related-products');
+    const categories = productGetters.getCategories(product);
+    const relatedProducts = computed(() => productGetters.getVariants(products, { masters: true }).value
+      .filter((prod) => productGetters.getId(prod) !== productGetters.getId(product)));
 
     if (categories.length > 0) {
       search({ catId: [categories[0]] });
@@ -61,10 +52,10 @@ export default {
       relatedProducts,
       search,
       loading,
-      getProductSlug,
-      getProductName,
-      getProductGallery,
-      getProductPrice
+      getProductSlug: product => productGetters.getSlug(product),
+      getProductName: product => productGetters.getName(product),
+      getProductGallery: product => productGetters.getGallery(product),
+      getProductPrice: product => productGetters.getPrice(product)
     };
   }
 };

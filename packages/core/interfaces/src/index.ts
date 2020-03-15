@@ -2,7 +2,7 @@ import { Ref } from '@vue/composition-api';
 
 type ComputedProperty<T> = Readonly<Ref<Readonly<T>>>;
 
-export interface UseProduct<PRODUCT> {
+export interface UseProduct<PRODUCT, PRODUCT_FILTER> {
   products: ComputedProperty<PRODUCT[]>;
   totalProducts: ComputedProperty<number>;
   search: (params: {
@@ -15,6 +15,7 @@ export interface UseProduct<PRODUCT> {
   }) => Promise<void>;
   loading: ComputedProperty<boolean>;
   [x: string]: any;
+  productGetters: ProductGetters<PRODUCT, PRODUCT_FILTER>;
 }
 
 export interface UseUser
@@ -23,6 +24,7 @@ export interface UseUser
   UPDATE_USER_PARAMS
 > {
   user: ComputedProperty<USER>;
+  userGetters: UserGetters<USER>;
   updateUser: (params: UPDATE_USER_PARAMS) => Promise<void>;
   register: (user: {
     email: string;
@@ -35,11 +37,8 @@ export interface UseUser
     username: string;
     password: string;
     [x: string]: any;
-  }) => Promise<void>;
-  logout: () => Promise<void>;
-  changePassword: (
-    currentPassword: string,
-    newPassword: string
+  }) => Promise<void>; logout: () => Promise<void>; changePassword: (currentPassword: string,
+        newPassword: string
   ) => Promise<void>;
   isAuthenticated: Ref<boolean>;
   loading: Ref<boolean>;
@@ -73,12 +72,14 @@ export interface UseUserAddress<ADDRESS> {
 
 export interface UseCategory
 <
-  CATEGORY
+  CATEGORY,
+  PRODUCTS
 > {
   categories: ComputedProperty<CATEGORY[]>;
   search: (params: {
     [x: string]: any;
   }) => Promise<void>;
+  categoryGetters: CategoryGetters<CATEGORY, PRODUCTS>;
   loading: Ref<boolean>;
 }
 
@@ -99,6 +100,7 @@ export interface UseCart
   applyCoupon: (coupon: string) => Promise<void>;
   removeCoupon: () => Promise<void>;
   refreshCart: () => Promise<void>;
+  cartGetters: CartGetters<CART, PRODUCT>;
   loading: Ref<boolean>;
 }
 
@@ -139,6 +141,7 @@ export interface UseCheckout
   CHOOSEN_SHIPPING_METHOD,
   PLACE_ORDER,
 > {
+  checkoutGetters: CheckoutGetters<SHIPPING_METHODS>;
   paymentMethods: Ref<PAYMENT_METHODS>;
   shippingMethods: Ref<SHIPPING_METHODS>;
   personalDetails: PERSONAL_DETAILS;
@@ -166,6 +169,52 @@ export interface UseLocale
   availableCountries: AVAILABLE_COUNTRIES;
   availableCurrencies: AVAILABLE_CURRENCIES;
   loading: Ref<boolean>;
+}
+
+export interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
+  getName: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<string>>;
+  getSlug: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<string>>;
+  getPrice: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<number | null>>;
+  getGallery: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<UiMediaGalleryItem[]>>;
+  getVariants: (products: PRODUCT[] | Readonly<PRODUCT[]>, filters?: PRODUCT_FILTER) =>
+    Ref<Readonly<PRODUCT[]> | Readonly<PRODUCT[]>>;
+  getAttributes: (product: PRODUCT[] | Readonly<PRODUCT[]>, filters?: Array<string>) =>
+    Ref<Readonly<Array<AgnosticProductAttribute>>>;
+  getDescription: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<any>>;
+  getCategories: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<string[]>>;
+  getId: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<number>>;
+}
+
+export interface CartGetters<CART, PRODUCT> {
+  getProducts: (cart: CART) => Ref<Readonly<PRODUCT[]>>;
+  getProductName: (product: PRODUCT) => Ref<Readonly<string>>;
+  getProductImage: (product: PRODUCT) => Ref<Readonly<string>>;
+  getProductPrice: (product: PRODUCT) => Ref<Readonly<string>>;
+  getProductQty: (product: PRODUCT) => Ref<Readonly<string>>;
+  getProductAttributes: (product: PRODUCT, filterByAttributeName?: Array<string>) =>
+    Ref<Readonly<Record<string, string | AgnosticProductAttribute>>>;
+  getProductSku: (product: PRODUCT) => Ref<Readonly<string>>;
+  getTotals: (cart: CART) => Ref<Readonly<AgnosticTotals>>;
+  getShippingPrice: (cart: CART) => Ref<Readonly<number>>;
+  getTotalItems: (cart: CART) => Ref<Readonly<number>>;
+}
+
+export interface CategoryGetters<CATEGORY, PRODUCTS> {
+  getProducts: (category: CATEGORY, options: any) => Ref<Readonly<PRODUCTS>>;
+  getTree: (category: CATEGORY) => Ref<Readonly<UiCategory | null>>;
+}
+
+export interface UserGetters<USER> {
+  getFirstName: (customer: USER | Ref<USER>) => Ref<Readonly<string>>;
+  getLastName: (customer: USER | Ref<USER>) => Ref<Readonly<string>>;
+  getFullName: (customer: USER | Ref<USER>) => Ref<Readonly<string>>;
+}
+
+export interface CheckoutGetters<SHIPPING_METHODS> {
+  getShippingMethodId: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<string>>;
+  getShippingMethodName: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<string>>;
+  getShippingMethodDescription: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<string>>;
+  getShippingMethodPrice: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<number>>;
 }
 
 export interface UiMediaGalleryItem {

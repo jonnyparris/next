@@ -1,13 +1,14 @@
+import { ref, Ref } from '@vue/composition-api';
 import { UseCart } from '@vue-storefront/interfaces';
 import {
   addToCart as apiAddToCart,
   removeFromCart as apiRemoveFromCart,
   updateCartQuantity as apiUpdateCartQuantity
 } from '@vue-storefront/commercetools-api';
-import { ProductVariant, Cart, LineItem } from './../types/GraphQL';
-import loadCurrentCart from './currentCart';
 import { useCartFactory, UseCartFactoryParams} from '@vue-storefront/factories';
-import { ref, Ref } from '@vue/composition-api';
+import loadCurrentCart from './currentCart';
+import { cartHelpers } from './../getters';
+import { ProductVariant, Cart, LineItem } from './../types/GraphQL';
 
 export const cart: Ref<Cart> = ref(null);
 
@@ -42,7 +43,8 @@ const params: UseCartFactoryParams<Cart, LineItem, ProductVariant, any> = {
   isOnCart: ({ currentCart }) => {
     console.log('Mocked isOnCart', currentCart);
     return true;
-  }
+  },
+  cartHelpers
 };
 
 const useCart: () => UseCart<Cart, LineItem, ProductVariant, any> = useCartFactory<Cart, LineItem, ProductVariant, any>(params);

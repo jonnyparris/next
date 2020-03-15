@@ -60,12 +60,12 @@
       />
       <SfProperty
         name="Shipping"
-        :value="getShippingMethodPrice(chosenShippingMethod)"
+        :value="shippingMethodPrice"
         class="sf-property--full-width property"
       />
       <SfProperty
         name="Total"
-        :value="totals.total + getShippingMethodPrice(chosenShippingMethod)"
+        :value="totals.total + shippingMethodPrice"
         class="sf-property--full-width property-total"
       />
     </div>
@@ -106,23 +106,8 @@ import {
   SfCharacteristic,
   SfInput
 } from '@storefront-ui/vue';
-import { computed, ref } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import { useCart, useCheckout } from '@vue-storefront/commercetools-composables';
-
-import {
-  getShippingMethodName,
-  getShippingMethodDescription,
-  getShippingMethodPrice,
-  getCartProducts,
-  getCartTotals,
-  getCartTotalItems,
-  getCartProductName,
-  getCartProductImage,
-  getCartProductPrice,
-  getCartProductQty,
-  getCartProductAttributes,
-  getCartProductSku
-} from '@vue-storefront/commercetools-helpers';
 
 export default {
   name: 'CartPreview',
@@ -135,34 +120,28 @@ export default {
     SfInput
   },
   setup() {
-    const { chosenShippingMethod } = useCheckout();
-    const { cart, removeFromCart, updateQuantity } = useCart();
+    const { checkoutGetters, chosenShippingMethod } = useCheckout();
+    const { cartGetters, cart, removeFromCart, updateQuantity } = useCart();
     const listIsHidden = ref(false);
     const promoCode = ref('');
     const showPromoCode = ref(false);
-    const products = computed(() => getCartProducts(cart.value));
-    const totalItems = computed(() => getCartTotalItems(cart.value));
-    const totals = computed(() => getCartTotals(cart.value));
 
     return {
-      totalItems,
+      totalItems: cartGetters.getTotalItems(cart),
+      products: cartGetters.getProducts(cart),
+      totals: cartGetters.getTotals(cart),
       listIsHidden,
-      products,
-      chosenShippingMethod,
-      totals,
       promoCode,
       showPromoCode,
       removeFromCart,
       updateQuantity,
-      getShippingMethodName,
-      getShippingMethodDescription,
-      getShippingMethodPrice,
-      getCartProductName,
-      getCartProductImage,
-      getCartProductPrice,
-      getCartProductQty,
-      getCartProductAttributes,
-      getCartProductSku,
+      getCartProductName: product => cartGetters.getProductName(product).value,
+      getCartProductImage: product => cartGetters.getProductImage(product).value,
+      getCartProductPrice: product => cartGetters.getProductPrice(product).value,
+      getCartProductQty: product => cartGetters.getProductQty(product).value,
+      getCartProductAttributes: product => cartGetters.getProductAttributes(product).value,
+      getCartProductSku: product => cartGetters.getProductSku(product).value,
+      shippingMethodPrice: checkoutGetters.getShippingMethodPrice(chosenShippingMethod).value,
       characteristics: [
         {
           title: 'Safety',
