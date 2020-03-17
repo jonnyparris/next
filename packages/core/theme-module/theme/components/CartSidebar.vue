@@ -77,7 +77,7 @@ import {
   SfPrice,
   SfCollectedProduct
 } from '@storefront-ui/vue';
-import { useCart } from '@vue-storefront/commercetools-composables';
+import { useCart } from '<%= options.composables %>';
 import uiState from '~/assets/ui-state';
 
 const { isCartSidebarOpen, toggleCartSidebar } = uiState;

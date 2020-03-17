@@ -107,7 +107,7 @@ import {
   SfInput
 } from '@storefront-ui/vue';
 import { ref } from '@vue/composition-api';
-import { useCart, useCheckout } from '@vue-storefront/commercetools-composables';
+import { useCart, useCheckout } from '<%= options.composables %>';
 
 export default {
   name: 'CartPreview',

@@ -50,7 +50,7 @@
 </template>
 <script>
 import { SfHeading, SfButton } from '@storefront-ui/vue';
-import { useCheckout } from '@vue-storefront/commercetools-composables';
+import { useCheckout } from '<%= options.composables %>';
 
 export default {
   name: 'OrderReview',
