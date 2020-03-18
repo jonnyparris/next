@@ -1,7 +1,7 @@
 import * as prismicHelpers from './prismicHelpers';
-import { unwrap } from './_utils';
+import { wrap } from './_utils';
 
 export {
   prismicHelpers,
-  unwrap
+  wrap
 };

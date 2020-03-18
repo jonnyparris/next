@@ -1,6 +1,6 @@
 import { ref, Ref, computed } from '@vue/composition-api';
 import { UseProduct, AgnosticProductAttribute, UiMediaGalleryItem } from '@vue-storefront/interfaces';
-import { unwrap } from '@vue-storefront/utils';
+import { wrap } from '@vue-storefront/utils';
 
 type SearchParams = {
   perPage?: number;
@@ -42,39 +42,39 @@ export function useProductFactory<PRODUCT, PRODUCT_FILTERS, PRODUCT_SEARCH_PARAM
 
     const productGetters = {
       getName: (product) => {
-        return computed(() => factoryParams.productHelpers.getName(unwrap(product).value));
+        return computed(() => factoryParams.productHelpers.getName(wrap(product).value));
       },
 
       getSlug: (product) => {
-        return computed(() => factoryParams.productHelpers.getSlug(unwrap(product).value));
+        return computed(() => factoryParams.productHelpers.getSlug(wrap(product).value));
       },
 
       getPrice: (product) => {
-        return computed(() => factoryParams.productHelpers.getPrice(unwrap(product).value));
+        return computed(() => factoryParams.productHelpers.getPrice(wrap(product).value));
       },
 
       getGallery: (product) => {
-        return computed(() => factoryParams.productHelpers.getGallery(unwrap(product).value));
+        return computed(() => factoryParams.productHelpers.getGallery(wrap(product).value));
       },
 
       getVariants: (products, filters?) => {
-        return computed(() => factoryParams.productHelpers.getVariants(unwrap(products).value, filters));
+        return computed(() => factoryParams.productHelpers.getVariants(wrap(products).value, filters));
       },
 
       getAttributes: (product, filters?) => {
-        return computed(() => factoryParams.productHelpers.getAttributes(unwrap(product).value, filters));
+        return computed(() => factoryParams.productHelpers.getAttributes(wrap(product).value, filters));
       },
 
       getDescription: (product) => {
-        return computed(() => factoryParams.productHelpers.getDescription(unwrap(product).value));
+        return computed(() => factoryParams.productHelpers.getDescription(wrap(product).value));
       },
 
       getCategories: (product) => {
-        return computed(() => factoryParams.productHelpers.getCategories(unwrap(product).value));
+        return computed(() => factoryParams.productHelpers.getCategories(wrap(product).value));
       },
 
       getId: (product) => {
-        return computed(() => factoryParams.productHelpers.getId(unwrap(product).value));
+        return computed(() => factoryParams.productHelpers.getId(wrap(product).value));
       }
     };
 

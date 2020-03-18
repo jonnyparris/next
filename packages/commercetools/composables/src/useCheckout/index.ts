@@ -1,9 +1,10 @@
 /* istanbul ignore file */
 
 import { UseCheckout } from '@vue-storefront/interfaces';
+import { wrap } from '@vue-storefront/utils';
 import { placeOrder as processOrder, getShippingMethods } from '@vue-storefront/commercetools-api';
 import { ref, Ref, watch, computed } from '@vue/composition-api';
-import { checkoutHelpers, unwrap } from '../getters';
+import { checkoutHelpers } from '../getters';
 import { cart } from './../useCart';
 import { ShippingMethod, AddressInput, Customer } from '@vue-storefront/commercetools-api/lib/src/types/GraphQL';
 
@@ -49,17 +50,17 @@ export default function useCheckout(): UseCheckout<any, any, any, any, any, any,
 
   const checkoutGetters = {
     getShippingMethodId: (user: Ref<ShippingMethod> | ShippingMethod) => {
-      return computed(() => checkoutHelpers.getShippingMethodId(unwrap(user).value));
+      return computed(() => checkoutHelpers.getShippingMethodId(wrap(user).value));
     },
     getShippingMethodName: (user: Ref<ShippingMethod> | ShippingMethod) => {
-      return computed(() => checkoutHelpers.getShippingMethodName(unwrap(user).value));
+      return computed(() => checkoutHelpers.getShippingMethodName(wrap(user).value));
     },
     getShippingMethodDescription: (user: Ref<ShippingMethod> | ShippingMethod) => {
-      return computed(() => checkoutHelpers.getShippingMethodDescription(unwrap(user).value));
+      return computed(() => checkoutHelpers.getShippingMethodDescription(wrap(user).value));
     },
 
     getShippingMethodPrice: (user: Ref<ShippingMethod> | ShippingMethod) => {
-      return computed(() => checkoutHelpers.getShippingMethodPrice(unwrap(user).value));
+      return computed(() => checkoutHelpers.getShippingMethodPrice(wrap(user).value));
     }
   };
 

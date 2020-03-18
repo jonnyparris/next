@@ -1,6 +1,6 @@
 import { UseCart, AgnosticTotals, AgnosticProductAttribute } from '@vue-storefront/interfaces';
 import { Ref, ref, computed } from '@vue/composition-api';
-import { unwrap } from '@vue-storefront/utils';
+import { wrap } from '@vue-storefront/utils';
 
 export type UseCartFactoryParams<CART, CART_ITEM, PRODUCT, COUPON> = {
   cart: Ref<CART>;
@@ -53,34 +53,34 @@ export function useCartFactory<CART, CART_ITEM, PRODUCT, COUPON>(
 
     const cartGetters = {
       getProducts: (cart: CART) => {
-        return computed(() => factoryParams.cartHelpers.getProducts(unwrap(cart).value));
+        return computed(() => factoryParams.cartHelpers.getProducts(wrap(cart).value));
       },
       getProductName: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductName(unwrap(product).value));
+        return computed(() => factoryParams.cartHelpers.getProductName(wrap(product).value));
       },
       getProductImage: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductImage(unwrap(product).value));
+        return computed(() => factoryParams.cartHelpers.getProductImage(wrap(product).value));
       },
       getProductPrice: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductPrice(unwrap(product).value));
+        return computed(() => factoryParams.cartHelpers.getProductPrice(wrap(product).value));
       },
       getProductQty: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductQty(unwrap(product).value));
+        return computed(() => factoryParams.cartHelpers.getProductQty(wrap(product).value));
       },
       getProductAttributes: (product: PRODUCT, filterByAttributeName?: Array<string>) => {
-        return computed(() => factoryParams.cartHelpers.getProductAttributes(unwrap(product).value, filterByAttributeName));
+        return computed(() => factoryParams.cartHelpers.getProductAttributes(wrap(product).value, filterByAttributeName));
       },
       getProductSku: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductSku(unwrap(product).value));
+        return computed(() => factoryParams.cartHelpers.getProductSku(wrap(product).value));
       },
       getTotals: (cart: CART) => {
-        return computed(() => factoryParams.cartHelpers.getTotals(unwrap(cart).value));
+        return computed(() => factoryParams.cartHelpers.getTotals(wrap(cart).value));
       },
       getShippingPrice: (cart: CART) => {
-        return computed(() => factoryParams.cartHelpers.getShippingPrice(unwrap(cart).value));
+        return computed(() => factoryParams.cartHelpers.getShippingPrice(wrap(cart).value));
       },
       getTotalItems: (cart: CART) => {
-        return computed(() => factoryParams.cartHelpers.getTotalItems(unwrap(cart).value));
+        return computed(() => factoryParams.cartHelpers.getTotalItems(wrap(cart).value));
       }
     };
 

@@ -1,5 +1,5 @@
 import { UseCategory, UiCategory } from '@vue-storefront/interfaces';
-import { usePersistedState, unwrap } from '@vue-storefront/utils';
+import { usePersistedState, wrap } from '@vue-storefront/utils';
 import { ref, Ref, computed } from '@vue/composition-api';
 
 export type UseCategoryFactoryParams<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS> = {
@@ -29,10 +29,10 @@ export function useCategoryFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS>(
 
     const categoryGetters = {
       getProducts: (category: CATEGORY, options: any): Ref<Readonly<PRODUCTS>> => {
-        return computed(() => factoryParams.categoryHelpers.getProducts(unwrap(category).value, options));
+        return computed(() => factoryParams.categoryHelpers.getProducts(wrap(category).value, options));
       },
       getTree: (category: CATEGORY): Ref<Readonly<UiCategory | null>> => {
-        return computed(() => factoryParams.categoryHelpers.getTree(unwrap(category).value));
+        return computed(() => factoryParams.categoryHelpers.getTree(wrap(category).value));
       }
     };
 

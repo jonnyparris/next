@@ -1,10 +1,5 @@
-import { Ref, isRef, ref } from '@vue/composition-api';
 import PrismicDOM from 'prismic-dom';
 import { PrismicBlockType, PrismicBlock, TransformBlock } from 'src/types';
-
-export function unwrap<T>(element: Ref<T> | T): Ref<T> {
-  return isRef(element) ? element : ref(element);
-}
 
 const getType = (block: PrismicBlock | number | string | PrismicBlock[]): PrismicBlockType | undefined => {
   if (!block) {

@@ -1,10 +1,5 @@
-import { Ref, isRef, ref } from '@vue/composition-api';
 import { AgnosticProductAttribute } from '@vue-storefront/interfaces';
 import { ProductVariant } from '../types/GraphQL';
-
-export function unwrap<T>(element: Ref<T> | T): Ref<T> {
-  return isRef(element) ? element : ref(element);
-}
 
 const getAttributeValue = (attribute) => {
   switch (attribute.__typename) {

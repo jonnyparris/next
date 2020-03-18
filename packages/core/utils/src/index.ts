@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
 import usePersistedState from './ssr';
-import unwrap from './unwrap';
+import wrap from './wrap';
 
-export { usePersistedState, unwrap };
+export { usePersistedState, wrap };
