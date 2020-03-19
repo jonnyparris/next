@@ -24,7 +24,6 @@ describe('[CORE core] makeComputedGetters', () => {
     };
 
     const computedGetters = makeComputedGetters(mockGetters);
-
     expect(computedGetters.getProducts('param1', 'param2', 'param3').value).toEqual('param1 param2 param3');
   });
 });

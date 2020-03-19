@@ -1,13 +1,10 @@
-import { UseCategory, UiCategory } from '@vue-storefront/interfaces';
+import { UseCategory, CategoryGetters } from '@vue-storefront/interfaces';
 import { usePersistedState } from '@vue-storefront/utils';
 import { ref, Ref, computed } from '@vue/composition-api';
 
 export type UseCategoryFactoryParams<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS> = {
   categorySearch: (searchParams: CATEGORY_SEARCH_PARAMS) => Promise<CATEGORY[]>;
-  categoryGetters: {
-    getProducts: (category: CATEGORY, options: any) => Ref<Readonly<PRODUCTS>>;
-    getTree: (category: CATEGORY) => Ref<Readonly<UiCategory | null>>;
-  };
+  categoryGetters: CategoryGetters<CATEGORY, PRODUCTS>;
 };
 
 export function useCategoryFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS>(

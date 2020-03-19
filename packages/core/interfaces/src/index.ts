@@ -166,49 +166,50 @@ export interface UseLocale
 }
 
 export interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
-  getName: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<string>>;
-  getSlug: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<string>>;
-  getPrice: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<number | null>>;
-  getGallery: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<UiMediaGalleryItem[]>>;
+  getName: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<string>;
+  getSlug: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<string>;
+  getPrice: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<number | null>;
+  getGallery: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<UiMediaGalleryItem[]>;
   getVariants: (products: PRODUCT[] | Readonly<PRODUCT[]>, filters?: PRODUCT_FILTER) =>
-    Ref<Readonly<PRODUCT[]> | Readonly<PRODUCT[]>>;
+    ComputedProperty<PRODUCT[]> | Readonly<PRODUCT[]>;
   getAttributes: (product: PRODUCT[] | Readonly<PRODUCT[]>, filters?: Array<string>) =>
-    Ref<Readonly<Array<AgnosticProductAttribute>>>;
-  getDescription: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<any>>;
-  getCategories: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<string[]>>;
-  getId: (product: PRODUCT | Readonly<PRODUCT>) => Ref<Readonly<number>>;
+    ComputedProperty<Array<AgnosticProductAttribute>>;
+  getDescription: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<any>;
+  getCategories: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<string[]>;
+  getId: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<number>;
 }
 
 export interface CartGetters<CART, PRODUCT> {
-  getProducts: (cart: CART) => Ref<Readonly<PRODUCT[]>>;
-  getProductName: (product: PRODUCT) => Ref<Readonly<string>>;
-  getProductImage: (product: PRODUCT) => Ref<Readonly<string>>;
-  getProductPrice: (product: PRODUCT) => Ref<Readonly<string>>;
-  getProductQty: (product: PRODUCT) => Ref<Readonly<string>>;
+  getProducts: (cart: CART) => ComputedProperty<PRODUCT[]>;
+  getProductName: (product: PRODUCT) => ComputedProperty<string>;
+  getProductImage: (product: PRODUCT) => ComputedProperty<string>;
+  getProductPrice: (product: PRODUCT) => ComputedProperty<string>;
+  getProductQty: (product: PRODUCT) => ComputedProperty<string>;
   getProductAttributes: (product: PRODUCT, filterByAttributeName?: Array<string>) =>
-    Ref<Readonly<Record<string, string | AgnosticProductAttribute>>>;
-  getProductSku: (product: PRODUCT) => Ref<Readonly<string>>;
-  getTotals: (cart: CART) => Ref<Readonly<AgnosticTotals>>;
-  getShippingPrice: (cart: CART) => Ref<Readonly<number>>;
-  getTotalItems: (cart: CART) => Ref<Readonly<number>>;
+    ComputedProperty<Record<string, string | AgnosticProductAttribute>>;
+  getProductSku: (product: PRODUCT) => ComputedProperty<string>;
+  getTotals: (cart: CART) => ComputedProperty<AgnosticTotals>;
+  getShippingPrice: (cart: CART) => ComputedProperty<number>;
+  getTotalItems: (cart: CART) => ComputedProperty<number>;
 }
 
 export interface CategoryGetters<CATEGORY, PRODUCTS> {
-  getProducts: (category: CATEGORY, options: any) => Ref<Readonly<PRODUCTS>>;
-  getTree: (category: CATEGORY) => Ref<Readonly<UiCategory | null>>;
+  getProducts: (category: CATEGORY, options: any) => ComputedProperty<PRODUCTS>;
+  getTree: (category: CATEGORY) => ComputedProperty<UiCategory | null>;
+  [getterName: string]: (element: CATEGORY, ...args: any) => any;
 }
 
 export interface UserGetters<USER> {
-  getFirstName: (customer: USER | Ref<USER>) => Ref<Readonly<string>>;
-  getLastName: (customer: USER | Ref<USER>) => Ref<Readonly<string>>;
-  getFullName: (customer: USER | Ref<USER>) => Ref<Readonly<string>>;
+  getFirstName: (customer: USER | Ref<USER>) => ComputedProperty<string>;
+  getLastName: (customer: USER | Ref<USER>) => ComputedProperty<string>;
+  getFullName: (customer: USER | Ref<USER>) => ComputedProperty<string>;
 }
 
 export interface CheckoutGetters<SHIPPING_METHODS> {
-  getShippingMethodId: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<string>>;
-  getShippingMethodName: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<string>>;
-  getShippingMethodDescription: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<string>>;
-  getShippingMethodPrice: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<number>>;
+  getShippingMethodId: (shippingMethod: SHIPPING_METHODS) => ComputedProperty<string>;
+  getShippingMethodName: (shippingMethod: SHIPPING_METHODS) => ComputedProperty<string>;
+  getShippingMethodDescription: (shippingMethod: SHIPPING_METHODS) => ComputedProperty<string>;
+  getShippingMethodPrice: (shippingMethod: SHIPPING_METHODS) => ComputedProperty<number>;
 }
 
 export interface UserOrderGetters<ORDER> {
