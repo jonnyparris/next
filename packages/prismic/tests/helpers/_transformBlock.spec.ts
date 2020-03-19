@@ -1,5 +1,5 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
-import { transformBlock } from '../../src/helpers/_utils';
+import { transformBlock } from './../../src/composables/getters/_utils';
 
 describe('[prismic] transformBlock', () => {
   let block;

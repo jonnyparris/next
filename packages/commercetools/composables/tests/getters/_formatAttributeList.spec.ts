@@ -1,6 +1,6 @@
 import { formatAttributeList } from '../../src/getters/_utils';
 
-describe('[commercetools getters] internal utilities helpers', () => {
+describe('[commercetools getters] internal utilities Getters', () => {
   const attributeList = [
     { __typename: 'StringAttribute',
       stringValue: 'val',

@@ -1,4 +1,4 @@
-import { productHelpers } from './index';
+import { productGetters } from './index';
 import { AgnosticTotals } from '@vue-storefront/interfaces';
 import { Cart, LineItem } from '../types/GraphQL';
 
@@ -19,7 +19,7 @@ export const getProductPrice = (product: LineItem): number => product.price.valu
 export const getProductQty = (product: LineItem): number => product.quantity;
 
 export const getProductAttributes = (product: LineItem, filterByAttributeName?: Array<string>) =>
-  productHelpers.getAttributes(product.variant, filterByAttributeName);
+  productGetters.getAttributes(product.variant, filterByAttributeName);
 
 export const getProductSku = (product: LineItem): string => product.variant.sku;
 

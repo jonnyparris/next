@@ -7,7 +7,7 @@ import {
 } from '@vue-storefront/commercetools-api';
 import { useCartFactory, UseCartFactoryParams} from '@vue-storefront/factories';
 import loadCurrentCart from './currentCart';
-import { cartHelpers } from './../getters';
+import { cartGetters } from './../getters';
 import { ProductVariant, Cart, LineItem } from './../types/GraphQL';
 
 export const cart: Ref<Cart> = ref(null);
@@ -44,7 +44,7 @@ const params: UseCartFactoryParams<Cart, LineItem, ProductVariant, any> = {
     console.log('Mocked isOnCart', currentCart);
     return true;
   },
-  cartHelpers
+  cartGetters
 };
 
 const useCart: () => UseCart<Cart, LineItem, ProductVariant, any> = useCartFactory<Cart, LineItem, ProductVariant, any>(params);

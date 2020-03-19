@@ -268,7 +268,7 @@ export default {
       if (categories.value.length) productsSearch({ catId: categories.value[0].id });
     });
 
-    const categoryTree = computed(() => getters.categoryHelpers.getTree(categories.value[0]));
+    const categoryTree = computed(() => getters.categoryGetters.getTree(categories.value[0]));
 
     const getCategoryUrl = (slug) => `/c/${params.slug_1}/${slug}`;
     const isCategorySelected = (slug) => slug === (categories.value && categories.value[0].slug);

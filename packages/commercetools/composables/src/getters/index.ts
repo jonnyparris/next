@@ -1,13 +1,13 @@
-import * as productHelpers from './productHelpers';
-import * as cartHelpers from './cartHelpers';
-import * as categoryHelpers from './categoryHelpers';
-import * as checkoutHelpers from './checkoutHelpers';
-import * as userHelpers from './userHelpers';
+import * as productGetters from './productGetters';
+import * as cartGetters from './cartGetters';
+import * as categoryGetters from './categoryGetters';
+import * as checkoutGetters from './checkoutGetters';
+import * as userGetters from './userGetters';
 
 export {
-  productHelpers,
-  cartHelpers,
-  categoryHelpers,
-  checkoutHelpers,
-  userHelpers
+  productGetters,
+  cartGetters,
+  categoryGetters,
+  checkoutGetters,
+  userGetters
 };

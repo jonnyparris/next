@@ -7,7 +7,7 @@ import {
   getAttributes,
   getCategories,
   getId
-} from '../../src/getters/productHelpers';
+} from '../../src/getters/productGetters';
 
 const product = {
   _name: 'variant 1',
@@ -30,7 +30,7 @@ const product = {
   ]
 } as any;
 
-describe('[commercetools getters] product helpers', () => {
+describe('[commercetools getters] product Getters', () => {
   it('returns default values', () => {
     expect(getName(null)).toBe('');
     expect(getSlug(null)).toBe('');

@@ -5,7 +5,7 @@
 - [ ] Documentation of Next is created.
 - [ ] Documentation of commercetools API Client is created.
 - [ ] Documentation of composables is created.
-- [ ] Documentation of helpers is created.
+- [ ] Documentation of getters is created.
 
 ## Setup / CI Checklist
 

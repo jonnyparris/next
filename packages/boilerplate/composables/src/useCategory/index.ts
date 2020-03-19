@@ -2,7 +2,6 @@
 import { UseCategory } from '@vue-storefront/interfaces';
 import { ref, Ref, computed } from '@vue/composition-api';
 import { Category, CategoryFilter } from '@vue-storefront/boilerplate-api/src/types';
-import { categoryHelpers, wrap } from './../getters';
 
 // Category-specific typings.
 // Those inetrfaces are just recommendations.
@@ -20,14 +19,7 @@ export default function useCategory(): UseCategory<Category, Search, AppliedFilt
   const applyFilter: ApplyFilter = (filter) => {};
   const clearFilters: ClearFilters = () => {};
 
-  const categoryGetters = {
-    getProducts: (category: Category, options: any) => {
-      return computed(() => categoryHelpers.getProducts(wrap(category, options).value));
-    },
-    getTree: (category: Category) => {
-      return computed(() => categoryHelpers.getTree(wrap(category).value));
-    }
-  };
+  const categoryGetters = {};
 
   const search: Search = async (params) => {
     // load category based on Search Params

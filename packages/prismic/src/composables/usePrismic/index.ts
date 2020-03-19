@@ -3,7 +3,7 @@ import { wrap } from '@vue-storefront/utils';
 import { PrismicQuery, PrismicMeta, PrismicOptions } from '../../types';
 import { Document } from 'prismic-javascript/d.ts/documents';
 import loadDocuments from './loadDocuments';
-import { prismicHelpers } from '../getters';
+import { prismicGetters as prismicPlainGetters } from '../getters';
 
 type Search = (query: PrismicQuery | PrismicQuery[], options?: PrismicOptions) => Promise<void>;
 
@@ -54,71 +54,71 @@ export default function usePrismic(): UsePrismic {
 
   const prismicGetters = {
     getPages: (doc: Document | Document[], pageUid?: string): Ref<Readonly<Document | null | Document[] >> => {
-      return computed(() => prismicHelpers.getPages(wrap(doc).value, pageUid));
+      return computed(() => prismicPlainGetters.getPages(wrap(doc).value, pageUid));
     },
 
     getCurrentPage: (doc: PrismicMeta | null): Ref<Readonly<number>> => {
-      return computed(() => prismicHelpers.getCurrentPage(wrap(doc).value));
+      return computed(() => prismicPlainGetters.getCurrentPage(wrap(doc).value));
     },
 
     getResultsPerPage: (doc: PrismicMeta | null): Ref<Readonly<number>> => {
-      return computed(() => prismicHelpers.getResultsPerPage(wrap(doc).value));
+      return computed(() => prismicPlainGetters.getResultsPerPage(wrap(doc).value));
     },
 
     getResultsSize: (doc: PrismicMeta | null): Ref<Readonly<number>> => {
-      return computed(() => prismicHelpers.getResultsSize(wrap(doc).value));
+      return computed(() => prismicPlainGetters.getResultsSize(wrap(doc).value));
     },
 
     getTotalResultsSize: (doc: PrismicMeta | null): Ref<Readonly<number>> => {
-      return computed(() => prismicHelpers.getTotalResultsSize(wrap(doc).value));
+      return computed(() => prismicPlainGetters.getTotalResultsSize(wrap(doc).value));
     },
 
     getTotalPages: (doc: PrismicMeta | null): Ref<Readonly<number>> => {
-      return computed(() => prismicHelpers.getTotalPages(wrap(doc).value));
+      return computed(() => prismicPlainGetters.getTotalPages(wrap(doc).value));
     },
 
     getNextPage: (doc: PrismicMeta | null): Ref<Readonly<string | null>> => {
-      return computed(() => prismicHelpers.getNextPage(wrap(doc).value));
+      return computed(() => prismicPlainGetters.getNextPage(wrap(doc).value));
     },
 
     getPrevPage: (doc: PrismicMeta | null): Ref<Readonly<string | null>> => {
-      return computed(() => prismicHelpers.getPrevPage(wrap(doc).value));
+      return computed(() => prismicPlainGetters.getPrevPage(wrap(doc).value));
     },
 
     getPageUid: (page: Document): Ref<Readonly<string>> => {
-      return computed(() => prismicHelpers.getPageUid(wrap(page).value));
+      return computed(() => prismicPlainGetters.getPageUid(wrap(page).value));
     },
 
     getPageId: (page: Document): Ref<Readonly<string>> => {
-      return computed(() => prismicHelpers.getPageId(wrap(page).value));
+      return computed(() => prismicPlainGetters.getPageId(wrap(page).value));
     },
 
     getPageType: (page: Document): Ref<Readonly<string>> => {
-      return computed(() => prismicHelpers.getPageType(wrap(page).value));
+      return computed(() => prismicPlainGetters.getPageType(wrap(page).value));
     },
 
     getPageHref: (page: Document): Ref<Readonly<string>> => {
-      return computed(() => prismicHelpers.getPageHref(wrap(page).value));
+      return computed(() => prismicPlainGetters.getPageHref(wrap(page).value));
     },
 
     getPageTags: (page: Document): Ref<Readonly<string[]>> => {
-      return computed(() => prismicHelpers.getPageTags(wrap(page).value));
+      return computed(() => prismicPlainGetters.getPageTags(wrap(page).value));
     },
 
     getPageSlugs: (page: Document): Ref<Readonly<string[]>> => {
-      return computed(() => prismicHelpers.getPageSlugs(wrap(page).value));
+      return computed(() => prismicPlainGetters.getPageSlugs(wrap(page).value));
     },
 
     getPageLang: (page: Document): Ref<Readonly<string>> => {
-      return computed(() => prismicHelpers.getPageLang(wrap(page).value));
+      return computed(() => prismicPlainGetters.getPageLang(wrap(page).value));
     },
 
     getBlocks: (data: any, blockName?: any, transform?: any): Ref<Readonly<string | string[]>> => {
-      return computed(() => prismicHelpers.getBlocks(wrap(data).value, blockName, transform));
+      return computed(() => prismicPlainGetters.getBlocks(wrap(data).value, blockName, transform));
     },
 
     getSlices: ({ data }: Document, sliceType?: any): Ref<Readonly<any>> => {
-      return computed(() => prismicHelpers.getSlices(wrap(data).value, sliceType));
+      return computed(() => prismicPlainGetters.getSlices(wrap(data).value, sliceType));
     }
   };
 

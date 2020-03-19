@@ -28,7 +28,7 @@ export type UseCartFactoryParams<CART, CART_ITEM, PRODUCT, COUPON> = {
     currentCart: CART;
   }) => Promise<{ updatedCart: CART; updatedCoupon: COUPON }>;
   isOnCart: (params: { currentCart: CART; product: PRODUCT }) => boolean;
-  cartHelpers: {
+  cartGetters: {
     getProducts: (cart: CART) => PRODUCT[];
     getProductName: (product: PRODUCT) => string;
     getProductImage: (product: PRODUCT) => string;
@@ -53,34 +53,34 @@ export function useCartFactory<CART, CART_ITEM, PRODUCT, COUPON>(
 
     const cartGetters = {
       getProducts: (cart: CART) => {
-        return computed(() => factoryParams.cartHelpers.getProducts(wrap(cart).value));
+        return computed(() => factoryParams.cartGetters.getProducts(wrap(cart).value));
       },
       getProductName: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductName(wrap(product).value));
+        return computed(() => factoryParams.cartGetters.getProductName(wrap(product).value));
       },
       getProductImage: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductImage(wrap(product).value));
+        return computed(() => factoryParams.cartGetters.getProductImage(wrap(product).value));
       },
       getProductPrice: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductPrice(wrap(product).value));
+        return computed(() => factoryParams.cartGetters.getProductPrice(wrap(product).value));
       },
       getProductQty: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductQty(wrap(product).value));
+        return computed(() => factoryParams.cartGetters.getProductQty(wrap(product).value));
       },
       getProductAttributes: (product: PRODUCT, filterByAttributeName?: Array<string>) => {
-        return computed(() => factoryParams.cartHelpers.getProductAttributes(wrap(product).value, filterByAttributeName));
+        return computed(() => factoryParams.cartGetters.getProductAttributes(wrap(product).value, filterByAttributeName));
       },
       getProductSku: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartHelpers.getProductSku(wrap(product).value));
+        return computed(() => factoryParams.cartGetters.getProductSku(wrap(product).value));
       },
       getTotals: (cart: CART) => {
-        return computed(() => factoryParams.cartHelpers.getTotals(wrap(cart).value));
+        return computed(() => factoryParams.cartGetters.getTotals(wrap(cart).value));
       },
       getShippingPrice: (cart: CART) => {
-        return computed(() => factoryParams.cartHelpers.getShippingPrice(wrap(cart).value));
+        return computed(() => factoryParams.cartGetters.getShippingPrice(wrap(cart).value));
       },
       getTotalItems: (cart: CART) => {
-        return computed(() => factoryParams.cartHelpers.getTotalItems(wrap(cart).value));
+        return computed(() => factoryParams.cartGetters.getTotalItems(wrap(cart).value));
       }
     };
 

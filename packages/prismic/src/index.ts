@@ -1,9 +1,9 @@
 import usePrismic from './composables/usePrismic';
 import PrismicJS from 'prismic-javascript';
 import { ApiOptions } from 'prismic-javascript/d.ts/Api';
-import { getPages, getBlocks, getPageId, getSlices } from './helpers';
+import { getPages, getBlocks, getPageId, getSlices } from './composables/getters/prismicGetters';
 import { TransformBlock } from './types';
-import { transformBlock as defaultTransformFunction } from './helpers/_utils';
+import { transformBlock as defaultTransformFunction } from './composables/getters/_utils';
 
 interface SetupConfig {
   endpoint: string;

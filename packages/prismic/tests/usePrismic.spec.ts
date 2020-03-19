@@ -1,7 +1,7 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
 import { usePrismic } from '../src/composables';
 import { prismic } from '../src/index';
-import * as helpers from '../src/helpers/index';
+import * as getters from '../src/composables/getters';
 import { ApiOptions } from 'prismic-javascript/d.ts/Api';
 import ResolvedApi from 'prismic-javascript/d.ts/ResolvedApi';
 import { Ref } from '@vue/composition-api';
@@ -138,7 +138,7 @@ describe('[prismic] usePrismic', () => {
 
     await search({});
 
-    const { getPages, getCurrentPage, getResultsPerPage, getResultsSize, getTotalResultsSize, getTotalPages, getNextPage, getPrevPage } = helpers;
+    const { getPages, getCurrentPage, getResultsPerPage, getResultsSize, getTotalResultsSize, getTotalPages, getNextPage, getPrevPage } = getters;
 
     expect(getPages(doc.value)).toHaveLength(1);
     expect(getCurrentPage(meta.value)).toBe(1);
@@ -159,7 +159,7 @@ describe('[prismic] usePrismic', () => {
 
     const page = doc.value[0];
 
-    const { getPageUid, getPageId, getPageType, getPageHref, getPageTags, getPageSlugs, getPageLang } = helpers;
+    const { getPageUid, getPageId, getPageType, getPageHref, getPageTags, getPageSlugs, getPageLang } = getters;
 
     expect(getPageUid(page)).toBe('456');
     expect(getPageId(page)).toBe('123');
@@ -181,7 +181,7 @@ describe('[prismic] usePrismic', () => {
 
     const { data } = doc.value[0];
 
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
 
     expect(JSON.stringify(getBlocks(data))).toBe('["test"]');
   });
@@ -195,7 +195,7 @@ describe('[prismic] usePrismic', () => {
 
     const { data } = doc.value[0];
 
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
 
     expect(getBlocks(data, 'sampleElement')).toBe('test');
     expect(getBlocks(data, 'unknownElement')).toBe('');
@@ -209,7 +209,7 @@ describe('[prismic] usePrismic', () => {
     await search({});
 
     const { data } = doc.value[0];
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
 
     const blocks = getBlocks(data, ['sampleElement']);
 
@@ -219,7 +219,7 @@ describe('[prismic] usePrismic', () => {
   });
 
   it('should pass when wrong data provided', () => {
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
 
     const blocks = getBlocks(undefined);
     const block = getBlocks(undefined, 'unknown-element');
@@ -248,7 +248,7 @@ describe('[prismic] usePrismic', () => {
 
     const { data } = doc.value[0];
 
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
 
     expect(getBlocks(data, 'sampleElement')).toBe('<p>sample content</p>');
   });
@@ -258,7 +258,7 @@ describe('[prismic] usePrismic', () => {
       empty: ''
     };
 
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
 
     expect(getBlocks(emptyString, 'empty')).toBe('');
   });
@@ -271,7 +271,7 @@ describe('[prismic] usePrismic', () => {
     await search({});
 
     const { data } = doc.value[0];
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
 
     const block = getBlocks(data, 'sampleElement', () => 'override');
     const blocks = getBlocks(data, null, () => 'override');
@@ -291,7 +291,7 @@ describe('[prismic] usePrismic', () => {
 
     const page = doc.value[0];
 
-    const { getSlices, getBlocks } = helpers;
+    const { getSlices, getBlocks } = getters;
 
     const slices = getSlices(page);
 
@@ -320,7 +320,7 @@ describe('[prismic] usePrismic', () => {
 
     const page = doc.value[0];
 
-    const { getSlices, getBlocks } = helpers;
+    const { getSlices, getBlocks } = getters;
 
     const slice = getSlices(page, 'grid-slice');
 
@@ -341,7 +341,7 @@ describe('[prismic] usePrismic', () => {
 
     const page = doc.value[0];
 
-    const { getSlices } = helpers;
+    const { getSlices } = getters;
 
     const slices = getSlices(page, ['grid-slice']);
 
@@ -360,7 +360,7 @@ describe('[prismic] usePrismic', () => {
 
     const page = doc.value[0];
 
-    const { getSlices } = helpers;
+    const { getSlices } = getters;
 
     const slices = getSlices(page, (slice) => slice.slice_type !== 'list-slice');
 
@@ -378,7 +378,7 @@ describe('[prismic] usePrismic', () => {
 
     const page = doc.value[0];
 
-    const { getSlices } = helpers;
+    const { getSlices } = getters;
 
     const slice = getSlices(page, 'unknown-slice');
 
@@ -421,7 +421,7 @@ describe('[prismic] usePrismic', () => {
 
     const page = doc.value[0] as Document;
 
-    const { getPageUid, getPageId, getPageType, getPageHref, getPageTags, getPageSlugs, getPageLang } = helpers;
+    const { getPageUid, getPageId, getPageType, getPageHref, getPageTags, getPageSlugs, getPageLang } = getters;
 
     expect(getPageUid(page)).toBe('star-maker-of-the-month');
     expect(getPageId(page)).toBe('Xhx-tRAAACUAWQUv');
@@ -441,7 +441,7 @@ describe('[prismic] usePrismic', () => {
 
     await search({}, { getFirst: true });
 
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
     const { data } = doc.value as Document;
 
     const blocks = getBlocks(data);
@@ -457,7 +457,7 @@ describe('[prismic] usePrismic', () => {
 
     await search({}, { getFirst: true });
 
-    const { getSlices, getBlocks } = helpers;
+    const { getSlices, getBlocks } = getters;
 
     const page = doc.value as Document;
 
@@ -477,7 +477,7 @@ describe('[prismic] usePrismic', () => {
 
     const page = doc.value[0] as Document;
 
-    const { getPageUid, getPageId, getPageType, getPageHref, getPageTags, getPageSlugs, getPageLang } = helpers;
+    const { getPageUid, getPageId, getPageType, getPageHref, getPageTags, getPageSlugs, getPageLang } = getters;
 
     expect(getPageUid(page)).toBe(null);
     expect(getPageId(page)).toBe('WvLGVCsAAKn7PRtR');
@@ -498,7 +498,7 @@ describe('[prismic] usePrismic', () => {
     await search({}, { getFirst: true });
 
     const { data } = doc.value as Document;
-    const { getBlocks } = helpers;
+    const { getBlocks } = getters;
 
     const blocks = getBlocks(data);
 
@@ -513,7 +513,7 @@ describe('[prismic] usePrismic', () => {
 
     await search({}, { getFirst: true });
 
-    const { getSlices, getBlocks } = helpers;
+    const { getSlices, getBlocks } = getters;
 
     const page = doc.value as Document;
 

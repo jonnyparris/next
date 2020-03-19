@@ -12,7 +12,7 @@ Default theme is located in `packages/core/theme-module` folder and recognized a
 
 To inherit from default theme in your integration theme you need to install private `@vue-storefront/nuxt-theme` package. from this repo.
 
-In `nuxt.config.js` of your integration theme set `apiClient/composables/helpers `options to be named as your integration packages. For example under composables you can put `@vue-storefront/comemrcetools-composables`. It will be used in lodash templates inside `@vue-storefront/nuxt-theme` as a replacement for variables (like here `import { useProduct, useCart } from '<%= options.composables %>` - `options.composables` is a palceholder for value passed to composables option in `nuxt.config.js`)
+In `nuxt.config.js` of your integration theme set `apiClient/composables/Getters `options to be named as your integration packages. For example under composables you can put `@vue-storefront/comemrcetools-composables`. It will be used in lodash templates inside `@vue-storefront/nuxt-theme` as a replacement for variables (like here `import { useProduct, useCart } from '<%= options.composables %>` - `options.composables` is a palceholder for value passed to composables option in `nuxt.config.js`)
 
 ## How it works
 

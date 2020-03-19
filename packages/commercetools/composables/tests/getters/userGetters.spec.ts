@@ -2,14 +2,14 @@ import {
   getFirstName,
   getLastName,
   getFullName
-} from '../../src/getters/userHelpers';
+} from '../../src/getters/userGetters';
 
 const user = {
   firstName: 'John',
   lastName: 'Doe'
 } as any;
 
-describe('[commercetools getters] user helpers', () => {
+describe('[commercetools getters] user Getters', () => {
   it('returns default values', () => {
     expect(getFirstName(null)).toBe('');
     expect(getLastName(null)).toBe('');

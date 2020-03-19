@@ -4,7 +4,7 @@ import { ref, Ref, computed } from '@vue/composition-api';
 
 export type UseCategoryFactoryParams<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS> = {
   categorySearch: (searchParams: CATEGORY_SEARCH_PARAMS) => Promise<CATEGORY[]>;
-  categoryHelpers: {
+  categoryGetters: {
     getProducts: (category: CATEGORY, options: any) => PRODUCTS;
     getTree: (category: CATEGORY) => UiCategory | null;
   };
@@ -29,10 +29,10 @@ export function useCategoryFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, PRODUCTS>(
 
     const categoryGetters = {
       getProducts: (category: CATEGORY, options: any): Ref<Readonly<PRODUCTS>> => {
-        return computed(() => factoryParams.categoryHelpers.getProducts(wrap(category).value, options));
+        return computed(() => factoryParams.categoryGetters.getProducts(wrap(category).value, options));
       },
       getTree: (category: CATEGORY): Ref<Readonly<UiCategory | null>> => {
-        return computed(() => factoryParams.categoryHelpers.getTree(wrap(category).value));
+        return computed(() => factoryParams.categoryGetters.getTree(wrap(category).value));
       }
     };
 

@@ -12,7 +12,7 @@ type SearchParams = {
 
 export type UseProductFactoryParams<PRODUCT, PRODUCT_FILTERS, PRODUCT_SEARCH_PARAMS extends SearchParams> = {
   productsSearch: (searchParams: PRODUCT_SEARCH_PARAMS) => Promise<PRODUCT[]>;
-  productHelpers: {
+  productGetters: {
     getName: (product: PRODUCT | Readonly<PRODUCT>) => string;
     getSlug: (product: PRODUCT | Readonly<PRODUCT>) => string;
     getPrice: (product: PRODUCT | Readonly<PRODUCT>) => number | null;
@@ -42,39 +42,39 @@ export function useProductFactory<PRODUCT, PRODUCT_FILTERS, PRODUCT_SEARCH_PARAM
 
     const productGetters = {
       getName: (product) => {
-        return computed(() => factoryParams.productHelpers.getName(wrap(product).value));
+        return computed(() => factoryParams.productGetters.getName(wrap(product).value));
       },
 
       getSlug: (product) => {
-        return computed(() => factoryParams.productHelpers.getSlug(wrap(product).value));
+        return computed(() => factoryParams.productGetters.getSlug(wrap(product).value));
       },
 
       getPrice: (product) => {
-        return computed(() => factoryParams.productHelpers.getPrice(wrap(product).value));
+        return computed(() => factoryParams.productGetters.getPrice(wrap(product).value));
       },
 
       getGallery: (product) => {
-        return computed(() => factoryParams.productHelpers.getGallery(wrap(product).value));
+        return computed(() => factoryParams.productGetters.getGallery(wrap(product).value));
       },
 
       getVariants: (products, filters?) => {
-        return computed(() => factoryParams.productHelpers.getVariants(wrap(products).value, filters));
+        return computed(() => factoryParams.productGetters.getVariants(wrap(products).value, filters));
       },
 
       getAttributes: (product, filters?) => {
-        return computed(() => factoryParams.productHelpers.getAttributes(wrap(product).value, filters));
+        return computed(() => factoryParams.productGetters.getAttributes(wrap(product).value, filters));
       },
 
       getDescription: (product) => {
-        return computed(() => factoryParams.productHelpers.getDescription(wrap(product).value));
+        return computed(() => factoryParams.productGetters.getDescription(wrap(product).value));
       },
 
       getCategories: (product) => {
-        return computed(() => factoryParams.productHelpers.getCategories(wrap(product).value));
+        return computed(() => factoryParams.productGetters.getCategories(wrap(product).value));
       },
 
       getId: (product) => {
-        return computed(() => factoryParams.productHelpers.getId(wrap(product).value));
+        return computed(() => factoryParams.productGetters.getId(wrap(product).value));
       }
     };
 

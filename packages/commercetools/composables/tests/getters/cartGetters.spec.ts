@@ -1,4 +1,4 @@
-import { getAttributes } from '../../src/getters/productHelpers';
+import { getAttributes } from '../../src/getters/productGetters';
 import {
   getProducts,
   getTotals,
@@ -9,7 +9,7 @@ import {
   getProductImage,
   getProductSku,
   getProductAttributes
-} from '../../src/getters/cartHelpers';
+} from '../../src/getters/cartGetters';
 
 const price = (p) => ({ value: { centAmount: p } });
 const variant = (p = {}) => ({
@@ -42,7 +42,7 @@ const cart = {
   }
 } as any;
 
-describe('[commercetools getters] cart helpers', () => {
+describe('[commercetools getters] cart Getters', () => {
   it('returns default values', () => {
     expect(getProducts(null)).toEqual([]);
   });

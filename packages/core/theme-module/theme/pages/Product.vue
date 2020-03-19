@@ -233,7 +233,7 @@ export default {
     const qty = ref(1);
     const { slug } = context.root.$route.params;
     const { productGetters, products, search } = useProduct('product-page');
-    const { getVariants, getAttributes} = getters.productHelpers;
+    const { getVariants, getAttributes} = getters.productGetters;
     const { addToCart, loading } = useCart();
     search({ slug });
     const product = computed(() => getVariants(products.value, { master: true,

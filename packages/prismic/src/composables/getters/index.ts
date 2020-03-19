@@ -1,7 +1,5 @@
-import * as prismicHelpers from './prismicHelpers';
-import { wrap } from './_utils';
+import * as prismicGetters from './prismicGetters';
 
 export {
-  prismicHelpers,
-  wrap
+  prismicGetters
 };

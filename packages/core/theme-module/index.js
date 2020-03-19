@@ -38,7 +38,7 @@ module.exports = function DefaultThemeModule(moduleOptions) {
         this.options.buildDir.split('.nuxt').pop() + '.theme/' + file.split('theme/').pop(),
         {
           apiClient: moduleOptions.apiClient,
-          helpers: moduleOptions.helpers,
+          Getters: moduleOptions.Getters,
           composables: moduleOptions.composables
         }
       );

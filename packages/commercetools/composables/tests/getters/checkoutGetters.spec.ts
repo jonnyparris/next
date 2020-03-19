@@ -3,7 +3,7 @@ import {
   getShippingMethodName,
   getShippingMethodDescription,
   getShippingMethodPrice
-} from '../../src/getters/checkoutHelpers';
+} from '../../src/getters/checkoutGetters';
 
 describe('[commercetools getters] shipping method', () => {
   it('returns shipping method id', () => {

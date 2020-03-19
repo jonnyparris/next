@@ -3,7 +3,7 @@ import { UseProduct } from '@vue-storefront/interfaces';
 import { getProduct } from '@vue-storefront/commercetools-api';
 import { useProductFactory } from '@vue-storefront/factories';
 import { enhanceProduct } from './../helpers/internals';
-import { productHelpers } from './../getters';
+import { productGetters } from './../getters';
 import { ProductVariant, ProductVariantFilters } from './../types/GraphQL';
 
 const loadProductVariants = async (params): Promise<ProductVariant[]> => {
@@ -17,7 +17,7 @@ const useProduct: (
   cacheId: string
 ) => UseProduct<ProductVariant, ProductVariantFilters> = useProductFactory<ProductVariant, ProductVariantFilters, any>({
   productsSearch: loadProductVariants,
-  productHelpers
+  productGetters
 });
 
 export default useProduct;

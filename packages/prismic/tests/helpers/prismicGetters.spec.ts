@@ -11,7 +11,7 @@ import {
 
 jest.mock('prismic-javascript');
 
-describe('[prismic] helpers', () => {
+describe('[prismic] Getters', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });

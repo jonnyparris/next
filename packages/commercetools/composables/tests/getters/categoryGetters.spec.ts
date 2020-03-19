@@ -1,4 +1,4 @@
-import { getProducts, getTree } from '../../src/getters/categoryHelpers';
+import { getProducts, getTree } from '../../src/getters/categoryGetters';
 
 const category = {
   id: '6e6d2ca4-2431-42f9-ba5d-747bdb499786',
@@ -294,7 +294,7 @@ const category = {
   ]
 } as any;
 
-describe('[commercetools getters] category helpers', () => {
+describe('[commercetools getters] category Getters', () => {
   it('returns empty array when there are no _products', () => {
     expect(getProducts(null)).toEqual([]);
   });
