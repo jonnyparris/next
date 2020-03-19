@@ -1,7 +1,8 @@
 import { useProductFactory } from '../src';
 import { UseProduct } from '@vue-storefront/interfaces';
 
-const useProduct: (cacheId: string) => UseProduct<any> = useProductFactory<
+const useProduct: (cacheId: string) => UseProduct<any, any> = useProductFactory<
+  any,
   any,
   any
 >({

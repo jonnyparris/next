@@ -1,7 +1,7 @@
 import wrap from '../src/wrap';
 import { ref } from '@vue/composition-api';
 
-describe('[commercetools getters] unwrap', () => {
+describe('[CORE utils] unwrap', () => {
   it('should return ref when passed ref', () => {
     const element = ref('test-value');
     const unwrappedValue = wrap(element);
