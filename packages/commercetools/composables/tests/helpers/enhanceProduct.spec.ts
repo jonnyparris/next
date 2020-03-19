@@ -1,4 +1,4 @@
-import enhanceProduct from './../../src/Getters/internals/enhanceProduct';
+import enhanceProduct from './../../src/helpers/internals/enhanceProduct';
 
 const product = (name, slug, id) => ({
   masterData: {
