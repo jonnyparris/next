@@ -24,7 +24,7 @@
           ]"
         />
         <SfImage
-          v-for="(image, i) in getProductGallery(product).splice(0, 2)" :key="i"
+          v-for="(image, i) in getGallery(product).splice(0, 2)" :key="i"
           :src="image.big"
           :width="590"
           :height="700"
@@ -36,13 +36,13 @@
           <div class="product-details__mobile-top">
             <div>
               <SfHeading
-                :title="getProductName(product)"
+                :title="getName(product)"
                 :level="1"
                 class="sf-heading--no-underline sf-heading--left product-details__heading"
               />
               <div class="product-details__sub">
                 <SfPrice
-                  :regular="'$' + getProductPrice(product)"
+                  :regular="'$' + getPrice(product)"
                   class="sf-price--big product-details__sub-price"
                 />
                 <div class="product-details__sub-rating">
@@ -232,8 +232,14 @@ export default {
   setup(props, context) {
     const qty = ref(1);
     const { slug } = context.root.$route.params;
-    const { productGetters, products, search } = useProduct('product-page');
-    const { getVariants, getAttributes} = getters.productGetters;
+    const { products, search } = useProduct('product-page');
+    const { getVariants,
+      getAttributes,
+      getName,
+      getPrice,
+      getGallery
+    } = getters.productGetters;
+
     const { addToCart, loading } = useCart();
     search({ slug });
     const product = computed(() => getVariants(products.value, { master: true,
@@ -247,14 +253,15 @@ export default {
           ...filter }
       });
     };
+
     return {
       updateFilter,
       configuration,
       product,
       options,
-      getProductName: product => productGetters.getName(product).value,
-      getProductPrice: product => productGetters.getPrice(product).value,
-      getProductGallery: product => productGetters.getGallery(product).value,
+      getName,
+      getPrice,
+      getGallery,
       qty,
       addToCart,
       loading

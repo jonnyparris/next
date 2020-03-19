@@ -134,14 +134,14 @@
             <SfProductCard
               v-for="(product, i) in products"
               :key="i"
-              :title="getProductName(product)"
-              :regular-price="'$' + getProductPrice(product)"
-              :image="getProductGallery(product)[0].big"
+              :title="getName(product)"
+              :regular-price="'$' + getPrice(product)"
+              :image="getGallery(product)[0].big"
               :max-rating="5"
               :score-rating="3"
               :isOnWishlist="false"
               @click:wishlist="toggleWishlist(i)"
-              :link="`/p/${getProductSlug(product)}`"
+              :link="`/p/${getSlug(product)}`"
               class="products__product-card"
             />
           </div>
@@ -258,6 +258,12 @@ export default {
       (prev, curr) => params[curr] ? params[curr] : prev,
       params.slug_1
     );
+    const {
+      getName,
+      getGallery,
+      getPrice,
+      getSlug
+    } = getters.productGetters;
 
     const { categories, search, loading } = useCategory('category-page');
     const { productGetters, products: categoryProducts, search: productsSearch, loading: productsLoading } = useProduct('category-products');
@@ -274,13 +280,13 @@ export default {
     const isCategorySelected = (slug) => slug === (categories.value && categories.value[0].slug);
 
     return {
-      categoryTree,
       productsLoading,
       products: productGetters.getVariants(categoryProducts, { master: true}),
-      getProductName: product => productGetters.getName(product).value,
-      getProductGallery: product => productGetters.getGallery(product).value,
-      getProductPrice: product => productGetters.getPrice(product).value,
-      getProductSlug: product => productGetters.getSlug(product).value,
+      getName,
+      getGallery,
+      getPrice,
+      getSlug,
+      categoryTree,
       getCategoryUrl,
       isCategorySelected,
       loading

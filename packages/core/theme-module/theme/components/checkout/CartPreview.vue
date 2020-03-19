@@ -16,10 +16,10 @@
           <SfCollectedProduct
             v-for="(product, index) in products"
             :key="index"
-            :qty="getCartProductQty(product)"
-            :image="getCartProductImage(product)"
-            :title="getCartProductName(product)"
-            :regular-price="getCartProductPrice(product)"
+            :qty="getProductQty(product)"
+            :image="getProductImage(product)"
+            :title="getProductName(product)"
+            :regular-price="getProductPrice(product)"
             class="collected-product"
             @click:remove="removeFromCart(product)"
             @input="updateQuantity(product, $event)"
@@ -27,7 +27,7 @@
             <template #configuration>
               <div class="product__properties">
                 <SfProperty
-                  v-for="(value, key) in getCartProductAttributes(product, ['color', 'size'])"
+                  v-for="(value, key) in getProductAttributes(product, ['color', 'size'])"
                   :key="key"
                   :name="key"
                   :value="value"
@@ -37,9 +37,9 @@
             </template>
             <template #actions>
               <div>
-                <div class="product__action">{{ getCartProductSku(product) }}</div>
+                <div class="product__action">{{ getProductSku(product) }}</div>
                 <div class="product__action">
-                  Quantity: <span class="product__qty">{{ getCartProductQty(product) }}</span>
+                  Quantity: <span class="product__qty">{{ getProductQty(product) }}</span>
                 </div>
               </div>
             </template>
@@ -107,7 +107,7 @@ import {
   SfInput
 } from '@storefront-ui/vue';
 import { ref } from '@vue/composition-api';
-import { useCart, useCheckout } from '<%= options.composables %>';
+import { getters, useCart, useCheckout } from '<%= options.composables %>';
 
 export default {
   name: 'CartPreview',
@@ -120,6 +120,14 @@ export default {
     SfInput
   },
   setup() {
+    const {
+      getProductName,
+      getProductImage,
+      getProductPrice,
+      getProductQty,
+      getProductAttributes,
+      getProductSku
+    } = getters.cartGetters;
     const { checkoutGetters, chosenShippingMethod } = useCheckout();
     const { cartGetters, cart, removeFromCart, updateQuantity } = useCart();
     const listIsHidden = ref(false);
@@ -135,13 +143,13 @@ export default {
       showPromoCode,
       removeFromCart,
       updateQuantity,
-      getCartProductName: product => cartGetters.getProductName(product).value,
-      getCartProductImage: product => cartGetters.getProductImage(product).value,
-      getCartProductPrice: product => cartGetters.getProductPrice(product).value,
-      getCartProductQty: product => cartGetters.getProductQty(product).value,
-      getCartProductAttributes: product => cartGetters.getProductAttributes(product).value,
-      getCartProductSku: product => cartGetters.getProductSku(product).value,
-      shippingMethodPrice: checkoutGetters.getShippingMethodPrice(chosenShippingMethod).value,
+      getProductName,
+      getProductImage,
+      getProductPrice,
+      getProductQty,
+      getProductAttributes,
+      getProductSku,
+      shippingMethodPrice: checkoutGetters.getShippingMethodPrice(chosenShippingMethod),
       characteristics: [
         {
           title: 'Safety',

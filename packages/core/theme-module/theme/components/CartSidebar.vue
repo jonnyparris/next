@@ -13,12 +13,12 @@
             <transition-group name="fade" tag="div">
               <SfCollectedProduct
                 v-for="product in products"
-                :key="cartGetters.getProductName(product).value"
-                :image="cartGetters.getProductImage(product).value"
-                :title="cartGetters.getProductName(product).value"
-                :regular-price="cartGetters.getProductPrice(product).value"
+                :key="getProductName(product)"
+                :image="getProductImage(product)"
+                :title="getProductName(product)"
+                :regular-price="getProductPrice(product)"
                 :stock="99999"
-                :qty="cartGetters.getProductQty(product).value"
+                :qty="getProductQty(product)"
                 @input="updateQuantity(product, $event)"
                 @click:remove="removeFromCart(product)"
                 class="collected-product"
@@ -26,7 +26,7 @@
                 <template #configuration>
                   <div class="collected-product__properties">
                     <SfProperty
-                      v-for="(value, key) in cartGetters.getProductAttributes(product, ['color', 'size']).value"
+                      v-for="(value, key) in getProductAttributes(product, ['color', 'size'])"
                       :key="key"
                       :name="key"
                       :value="value"
@@ -77,7 +77,7 @@ import {
   SfPrice,
   SfCollectedProduct
 } from '@storefront-ui/vue';
-import { useCart } from '<%= options.composables %>';
+import { getters, useCart } from '<%= options.composables %>';
 import uiState from '~/assets/ui-state';
 
 const { isCartSidebarOpen, toggleCartSidebar } = uiState;
@@ -92,6 +92,14 @@ export default {
     SfCollectedProduct
   },
   setup() {
+    const {
+      getProductName,
+      getProductImage,
+      getProductPrice,
+      getProductAttributes,
+      getProductQty
+    } = getters.cartGetters;
+
     const { cartGetters, cart, removeFromCart, updateQuantity } = useCart();
     const products = cartGetters.getProducts(cart);
     const totals = cartGetters.getTotals(cart);
@@ -105,7 +113,12 @@ export default {
       toggleCartSidebar,
       totals,
       totalItems,
-      cartGetters
+      cartGetters,
+      getProductName,
+      getProductImage,
+      getProductPrice,
+      getProductAttributes,
+      getProductQty
     };
   }
 };
