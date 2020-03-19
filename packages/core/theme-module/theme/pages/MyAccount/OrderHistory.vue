@@ -21,12 +21,12 @@
             <SfButton class="desktop-only orders__download-all">Download all</SfButton>
           </SfTableHeader>
         </SfTableHeading>
-        <SfTableRow v-for="order in orders" :key="getOrderNumber(order)">
-          <SfTableData>{{ getOrderNumber(order) }}</SfTableData>
-          <SfTableData>{{ getOrderDate(order) }}</SfTableData>
-          <SfTableData>{{ getOrderTotal(order) }}</SfTableData>
+        <SfTableRow v-for="order in orders" :key="getNumber(order)">
+          <SfTableData>{{ getNumber(order) }}</SfTableData>
+          <SfTableData>{{ getDate(order) }}</SfTableData>
+          <SfTableData>{{ getTotal(order) }}</SfTableData>
           <SfTableData>
-            <span :class="getStatusTextClass(order)">{{ getOrderStatus(order) }}</span>
+            <span :class="getStatusTextClass(order)">{{ getStatus(order) }}</span>
           </SfTableData>
           <SfTableData class="orders__view">
             <SfButton class="sf-button--text mobile-only">Download</SfButton>
@@ -64,10 +64,10 @@ export default {
   },
   setup() {
     const {
-      getOrderStatus,
-      getOrderNumber,
-      getOrderDate,
-      getOrderTotal
+      getStatus,
+      getNumber,
+      getDate,
+      getTotal
     } = getters.userOrderGetters;
     const { orders, searchOrders } = useUserOrders();
 
@@ -81,7 +81,7 @@ export default {
     ];
 
     const getStatusTextClass = (order) => {
-      const status = getOrderStatus(order);
+      const status = getStatus(order);
       switch (status) {
         case AgnosticOrderStatus.Open:
           return 'text-warning';
@@ -95,10 +95,10 @@ export default {
     return {
       tableHeaders,
       orders: computed(() => orders ? orders.value : []),
-      getOrderNumber,
-      getOrderDate,
-      getOrderTotal,
-      getOrderStatus,
+      getNumber,
+      getDate,
+      getTotal,
+      getStatus,
       getStatusTextClass
     };
   }

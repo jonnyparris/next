@@ -5,10 +5,10 @@ import { wrap } from '@vue-storefront/utils';
 export type UseUserOrdersFactoryParams<ORDER, ORDER_SEARCH_PARAMS> = {
   searchOrders: (params: ORDER_SEARCH_PARAMS) => Promise<SearchResult<ORDER>>;
   userOrderGetters: {
-      getOrderDate: (order: ORDER) => string;
-      getOrderNumber: (order: ORDER) => string;
-      getOrderStatus: (order: ORDER) => AgnosticOrderStatus;
-      getOrderTotal: (order: ORDER) => number | null;
+      getDate: (order: ORDER) => string;
+      getNumber: (order: ORDER) => string;
+      getStatus: (order: ORDER) => AgnosticOrderStatus;
+      getTotal: (order: ORDER) => number | null;
   };
 };
 
@@ -30,20 +30,20 @@ export function useUserOrdersFactory<ORDER, ORDER_SEARCH_PARAMS>(factoryParams: 
     };
 
     const userOrderGetters: UserOrderGetters<ORDER> = {
-      getOrderDate: (order: ORDER) => {
-        return computed(() => factoryParams.userOrderGetters.getOrderDate(wrap(order).value));
+      getDate: (order: ORDER) => {
+        return computed(() => factoryParams.userOrderGetters.getDate(wrap(order).value));
       },
 
-      getOrderNumber: (order: ORDER) => {
-        return computed(() => factoryParams.userOrderGetters.getOrderNumber(wrap(order).value));
+      getNumber: (order: ORDER) => {
+        return computed(() => factoryParams.userOrderGetters.getNumber(wrap(order).value));
       },
 
-      getOrderStatus: (order: ORDER) => {
-        return computed(() => factoryParams.userOrderGetters.getOrderStatus(wrap(order).value));
+      getStatus: (order: ORDER) => {
+        return computed(() => factoryParams.userOrderGetters.getStatus(wrap(order).value));
       },
 
-      getOrderTotal: (order: ORDER) => {
-        return computed(() => factoryParams.userOrderGetters.getOrderTotal(wrap(order).value));
+      getTotal: (order: ORDER) => {
+        return computed(() => factoryParams.userOrderGetters.getTotal(wrap(order).value));
       }
     };
 

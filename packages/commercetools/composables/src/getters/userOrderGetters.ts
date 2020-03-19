@@ -1,9 +1,9 @@
 import { AgnosticOrderStatus } from '@vue-storefront/interfaces';
 import { Order, OrderState } from '../types/GraphQL';
 
-export const getOrderDate = (order: Order): string => order?.createdAt || '';
+export const getDate = (order: Order): string => order?.createdAt || '';
 
-export const getOrderNumber = (order: Order): string => order?.id || '';
+export const getNumber = (order: Order): string => order?.id || '';
 
 const orderStatusMap = {
   [OrderState.Open]: AgnosticOrderStatus.Open,
@@ -12,6 +12,6 @@ const orderStatusMap = {
   [OrderState.Cancelled]: AgnosticOrderStatus.Cancelled
 };
 
-export const getOrderStatus = (order: Order): AgnosticOrderStatus | '' => order?.orderState ? orderStatusMap[order.orderState] : '';
+export const getStatus = (order: Order): AgnosticOrderStatus | '' => order?.orderState ? orderStatusMap[order.orderState] : '';
 
-export const getOrderTotal = (order: Order): number | null => order ? order.totalPrice.centAmount / 100 : null;
+export const getTotal = (order: Order): number | null => order ? order.totalPrice.centAmount / 100 : null;

@@ -212,10 +212,10 @@ export interface CheckoutGetters<SHIPPING_METHODS> {
 }
 
 export interface UserOrderGetters<ORDER> {
-  getOrderDate: (order: ORDER) => ComputedProperty<string>;
-  getOrderNumber: (order: ORDER) => ComputedProperty<string>;
-  getOrderStatus: (order: ORDER) => ComputedProperty<AgnosticOrderStatus>;
-  getOrderTotal: (order: ORDER) => ComputedProperty<number | null>;
+  getDate: (order: ORDER) => ComputedProperty<string>;
+  getNumber: (order: ORDER) => ComputedProperty<string>;
+  getStatus: (order: ORDER) => ComputedProperty<AgnosticOrderStatus>;
+  getTotal: (order: ORDER) => ComputedProperty<number | null>;
 }
 
 export interface UiMediaGalleryItem {
