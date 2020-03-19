@@ -2,5 +2,10 @@
 
 import usePersistedState from './ssr';
 import wrap from './wrap';
+import { makeComputedGetters } from './makeComputedGetters';
 
-export { usePersistedState, wrap };
+export {
+  usePersistedState,
+  makeComputedGetters,
+  wrap
+};

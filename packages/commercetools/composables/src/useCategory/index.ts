@@ -1,4 +1,5 @@
 import { UseCategory } from '@vue-storefront/interfaces';
+import { makeComputedGetters } from '@vue-storefront/utils';
 import { getCategory } from '@vue-storefront/commercetools-api';
 import { Category, ProductVariant } from './../types/GraphQL';
 import { useCategoryFactory, UseCategoryFactoryParams } from '@vue-storefront/factories';
@@ -9,7 +10,7 @@ const params: UseCategoryFactoryParams<Category, any> = {
     const categoryResponse = await getCategory(params);
     return categoryResponse.data.categories.results;
   },
-  categoryGetters
+  categoryGetters: makeComputedGetters(categoryGetters)
 };
 
 const useCategory: (id: string) => UseCategory<Category, ProductVariant[]> = useCategoryFactory<Category, any>(params);

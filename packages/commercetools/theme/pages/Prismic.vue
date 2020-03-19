@@ -18,14 +18,11 @@
 </template>
 <script>
 
-import { computed } from '@vue/composition-api';
-import { usePrismic, getPages, getBlocks, getSlices, getPageId } from '@vue-storefront/prismic';
+import { usePrismic } from '@vue-storefront/prismic';
 
 export default {
   setup() {
-    const { doc, search, loading, error } = usePrismic();
-    const pages = computed(() => getPages(doc.value));
-
+    const { doc, search, loading, error, prismicGetters } = usePrismic();
     search({
       at: {
         fragment: 'document.type',
@@ -34,12 +31,9 @@ export default {
     });
 
     return {
-      pages,
       loading,
-      error,
-      getBlocks,
-      getSlices,
-      getPageId
+      pages: prismicGetters.getPages(doc),
+      error
     };
   }
 };
