@@ -1,5 +1,5 @@
+import { UseProduct, SearchResult, AgnosticProductAttribute, UiMediaGalleryItem } from '@vue-storefront/interfaces';
 import { ref, Ref, computed } from '@vue/composition-api';
-import { UseProduct, AgnosticProductAttribute, UiMediaGalleryItem } from '@vue-storefront/interfaces';
 import { wrap } from '@vue-storefront/utils';
 
 type SearchParams = {
@@ -11,7 +11,7 @@ type SearchParams = {
 }
 
 export type UseProductFactoryParams<PRODUCT, PRODUCT_FILTERS, PRODUCT_SEARCH_PARAMS extends SearchParams> = {
-  productsSearch: (searchParams: PRODUCT_SEARCH_PARAMS) => Promise<PRODUCT[]>;
+  productsSearch: (searchParams: PRODUCT_SEARCH_PARAMS) => Promise<SearchResult<PRODUCT>>;
   productGetters: {
     getName: (product: PRODUCT | Readonly<PRODUCT>) => string;
     getSlug: (product: PRODUCT | Readonly<PRODUCT>) => string;
@@ -37,8 +37,8 @@ export function useProductFactory<PRODUCT, PRODUCT_FILTERS, PRODUCT_SEARCH_PARAM
 
     // const products: Ref<ProductVariant[]> = ref(state || []);\
     const products: Ref<PRODUCT[]> = ref([]);
+    const totalProducts: Ref<number> = ref(0);
     const loading = ref(false);
-    const totalProducts = ref(0);
 
     const productGetters = {
       getName: (product) => {
@@ -81,7 +81,9 @@ export function useProductFactory<PRODUCT, PRODUCT_FILTERS, PRODUCT_SEARCH_PARAM
     const search = async (params: PRODUCT_SEARCH_PARAMS) => {
       loading.value = true;
       // products.value = await persistedResource<ProductVariant[]>(loadProductVariants, params);
-      products.value = await factoryParams.productsSearch(params);
+      const { data, total } = await factoryParams.productsSearch(params);
+      products.value = data;
+      totalProducts.value = total;
       loading.value = false;
     };
 

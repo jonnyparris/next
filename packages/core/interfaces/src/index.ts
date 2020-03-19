@@ -41,33 +41,30 @@ export interface UseUser
         newPassword: string
   ) => Promise<void>;
   isAuthenticated: Ref<boolean>;
-  loading: Ref<boolean>;
+  loading: ComputedProperty<boolean>;
 }
 
 export interface UseUserOrders<ORDER> {
-  orders: {
-    data: ComputedProperty<ORDER[]>;
-    total: ComputedProperty<number>;
-  };
+  orders: ComputedProperty<ORDER[]>;
+  totalOrders: ComputedProperty<number>;
   searchOrders: (params?: {
     id?: any;
     page?: number;
     perPage?: number;
     [x: string]: any;
   }) => Promise<void>;
-  loading: Ref<boolean>;
+  loading: ComputedProperty<boolean>;
+  userOrderGetters: UserOrderGetters<ORDER>;
 }
 
-/** check if we always have those addresses together or we need pagination  */
 export interface UseUserAddress<ADDRESS> {
   addresses: ComputedProperty<ADDRESS[]>;
+  totalAddresses: ComputedProperty<number>;
   addAddress: (address: ADDRESS) => Promise<void>;
   deleteAddress: (address: ADDRESS) => Promise<void>;
   updateAddress: (address: ADDRESS) => Promise<void>;
-  searchAddresses: (params?: {
-    [x: string]: any;
-  }) => Promise<void>;
-  loading: Ref<boolean>;
+  searchAddresses: (params?: { [x: string]: any }) => Promise<void>;
+  loading: ComputedProperty<boolean>;
 }
 
 export interface UseCategory
@@ -80,7 +77,7 @@ export interface UseCategory
     [x: string]: any;
   }) => Promise<void>;
   categoryGetters: CategoryGetters<CATEGORY, PRODUCTS>;
-  loading: Ref<boolean>;
+  loading: ComputedProperty<boolean>;
 }
 
 export interface UseCart
@@ -101,7 +98,7 @@ export interface UseCart
   removeCoupon: () => Promise<void>;
   refreshCart: () => Promise<void>;
   cartGetters: CartGetters<CART, PRODUCT>;
-  loading: Ref<boolean>;
+  loading: ComputedProperty<boolean>;
 }
 
 export interface UseWishlist
@@ -116,18 +113,15 @@ export interface UseWishlist
   removeFromWishlist: (product: WISHLIST_ITEM) => Promise<void>;
   clearWishlist: () => Promise<void>;
   refreshWishlist: () => Promise<void>;
-  loading: Ref<boolean>;
+  loading: ComputedProperty<boolean>;
 }
 
-export interface UseCompare
-<
-  PRODUCT
-> {
+export interface UseCompare<PRODUCT> {
   compare: ComputedProperty<PRODUCT[]>;
   addToCompare: (product: PRODUCT) => Promise<void>;
   removeFromCompare: (product: PRODUCT) => Promise<void>;
   clearCompare: () => Promise<void>;
-  loading: Ref<boolean>;
+  loading: ComputedProperty<boolean>;
 }
 
 export interface UseCheckout
@@ -150,7 +144,7 @@ export interface UseCheckout
   chosenPaymentMethod: CHOOSEN_PAYMENT_METHOD;
   chosenShippingMethod: CHOOSEN_SHIPPING_METHOD;
   placeOrder: PLACE_ORDER;
-  loading: Ref<boolean>;
+  loading: ComputedProperty<boolean>;
 }
 
 export interface UseLocale
@@ -168,7 +162,7 @@ export interface UseLocale
   availableLocales: AVAILABLE_LOCALES;
   availableCountries: AVAILABLE_COUNTRIES;
   availableCurrencies: AVAILABLE_CURRENCIES;
-  loading: Ref<boolean>;
+  loading: ComputedProperty<boolean>;
 }
 
 export interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
@@ -217,6 +211,13 @@ export interface CheckoutGetters<SHIPPING_METHODS> {
   getShippingMethodPrice: (shippingMethod: SHIPPING_METHODS) => Ref<Readonly<number>>;
 }
 
+export interface UserOrderGetters<ORDER> {
+  getOrderDate: (order: ORDER) => ComputedProperty<string>;
+  getOrderNumber: (order: ORDER) => ComputedProperty<string>;
+  getOrderStatus: (order: ORDER) => ComputedProperty<AgnosticOrderStatus>;
+  getOrderTotal: (order: ORDER) => ComputedProperty<number | null>;
+}
+
 export interface UiMediaGalleryItem {
   small: string;
   normal: string;
@@ -243,4 +244,19 @@ export interface AgnosticProductAttribute {
   name?: string;
   value: string | Record<string, any>;
   label: string;
+}
+
+export interface SearchResult<T> {
+  data: T[];
+  total: number;
+}
+
+export enum AgnosticOrderStatus {
+  Open = 'Open',
+  Pending = 'Pending',
+  Confirmed = 'Confirmed',
+  Shipped = 'Shipped',
+  Complete = 'Complete',
+  Cancelled = 'Cancelled',
+  Refunded = 'Refunded'
 }

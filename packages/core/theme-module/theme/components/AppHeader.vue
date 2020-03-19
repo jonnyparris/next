@@ -3,6 +3,7 @@
     active-sidebar="activeSidebar"
     @click:cart="toggleCartSidebar"
     @click:account="onAccountClicked"
+    :cartItemsQty="cartTotalItems"
     >
     <template #logo>
       <nuxt-link to="/" class="sf-header__logo">
@@ -10,21 +11,21 @@
       </nuxt-link>
     </template>
     <template #navigation>
-      <nuxt-link to="/c/women">
-        <SfHeaderNavigationItem>
-          WOMEN
-        </SfHeaderNavigationItem>
-      </nuxt-link>
-      <nuxt-link to="/c/men">
-        <SfHeaderNavigationItem>
+      <SfHeaderNavigationItem>
+        <nuxt-link to="/c/women">
+          WOMAN
+        </nuxt-link>
+      </SfHeaderNavigationItem>
+      <SfHeaderNavigationItem>
+        <nuxt-link to="/c/men">
           MEN
-        </SfHeaderNavigationItem>
-      </nuxt-link>
-      <nuxt-link to="/c/cat">
-        <SfHeaderNavigationItem>
+        </nuxt-link>
+      </SfHeaderNavigationItem>
+      <SfHeaderNavigationItem>
+        <nuxt-link to="/c/cat">
           KIDS
-        </SfHeaderNavigationItem>
-      </nuxt-link>
+        </nuxt-link>
+      </SfHeaderNavigationItem>
     </template>
   </SfHeader>
 </template>
@@ -32,8 +33,7 @@
 <script>
 import { SfHeader, SfImage } from '@storefront-ui/vue';
 import uiState from '~/assets/ui-state';
-import { useUser } from '<%= options.composables %>';
-
+import { useCart, useUser } from '<%= options.composables %>';
 const { toggleCartSidebar, toggleLoginModal } = uiState;
 
 export default {
@@ -43,12 +43,14 @@ export default {
   },
   setup(props, { root }) {
     const { isAuthenticated } = useUser();
-
     const onAccountClicked = () => {
       isAuthenticated && isAuthenticated.value ? root.$router.push('/my-account') : toggleLoginModal();
     };
+    const { cart, cartGetters } = useCart();
 
     return {
+      cartTotalItems: cartGetters.getTotalItems(cart).value.toString(),
+      toggleLoginModal,
       onAccountClicked,
       toggleCartSidebar
     };
