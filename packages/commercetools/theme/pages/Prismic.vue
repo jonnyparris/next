@@ -23,6 +23,7 @@ import { usePrismic } from '@vue-storefront/prismic';
 export default {
   setup() {
     const { doc, search, loading, error, prismicGetters } = usePrismic();
+
     search({
       at: {
         fragment: 'document.type',

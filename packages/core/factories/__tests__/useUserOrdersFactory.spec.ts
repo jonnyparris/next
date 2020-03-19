@@ -7,7 +7,8 @@ let params: UseUserOrdersFactoryParams<any, any>;
 
 function createComposable(): void {
   params = {
-    searchOrders: jest.fn().mockResolvedValueOnce({ data: ['first', 'second'], total: 10 })
+    searchOrders: jest.fn().mockResolvedValueOnce({ data: ['first', 'second'], total: 10 }),
+    userOrderGetters: {} as any
   };
   useUserOrders = useUserOrdersFactory<any, any>(params);
 }

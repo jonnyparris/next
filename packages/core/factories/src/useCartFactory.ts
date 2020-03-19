@@ -1,6 +1,5 @@
-import { UseCart, AgnosticTotals, AgnosticProductAttribute } from '@vue-storefront/interfaces';
+import { UseCart, CartGetters} from '@vue-storefront/interfaces';
 import { Ref, ref, computed } from '@vue/composition-api';
-import { wrap } from '@vue-storefront/utils';
 
 export type UseCartFactoryParams<CART, CART_ITEM, PRODUCT, COUPON> = {
   cart: Ref<CART>;
@@ -28,19 +27,7 @@ export type UseCartFactoryParams<CART, CART_ITEM, PRODUCT, COUPON> = {
     currentCart: CART;
   }) => Promise<{ updatedCart: CART; updatedCoupon: COUPON }>;
   isOnCart: (params: { currentCart: CART; product: PRODUCT }) => boolean;
-  cartGetters: {
-    getProducts: (cart: CART) => PRODUCT[];
-    getProductName: (product: PRODUCT) => string;
-    getProductImage: (product: PRODUCT) => string;
-    getProductPrice: (product: PRODUCT) => string;
-    getProductQty: (product: PRODUCT) => string;
-    getProductAttributes:
-      (product: PRODUCT, filterByAttributeName?: Array<string>) => Record<string, string | AgnosticProductAttribute>;
-    getProductSku: (product: PRODUCT) => string;
-    getTotals: (cart: CART) => AgnosticTotals;
-    getShippingPrice: (cart: CART) => number;
-    getTotalItems: (cart: CART) => number;
-  };
+  cartGetters: CartGetters<CART, PRODUCT>;
 };
 
 export function useCartFactory<CART, CART_ITEM, PRODUCT, COUPON>(
@@ -50,39 +37,6 @@ export function useCartFactory<CART, CART_ITEM, PRODUCT, COUPON>(
   const loading: Ref<boolean> = ref<boolean>(false);
 
   return function useCart(): UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
-
-    const cartGetters = {
-      getProducts: (cart: CART) => {
-        return computed(() => factoryParams.cartGetters.getProducts(wrap(cart).value));
-      },
-      getProductName: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartGetters.getProductName(wrap(product).value));
-      },
-      getProductImage: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartGetters.getProductImage(wrap(product).value));
-      },
-      getProductPrice: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartGetters.getProductPrice(wrap(product).value));
-      },
-      getProductQty: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartGetters.getProductQty(wrap(product).value));
-      },
-      getProductAttributes: (product: PRODUCT, filterByAttributeName?: Array<string>) => {
-        return computed(() => factoryParams.cartGetters.getProductAttributes(wrap(product).value, filterByAttributeName));
-      },
-      getProductSku: (product: PRODUCT) => {
-        return computed(() => factoryParams.cartGetters.getProductSku(wrap(product).value));
-      },
-      getTotals: (cart: CART) => {
-        return computed(() => factoryParams.cartGetters.getTotals(wrap(cart).value));
-      },
-      getShippingPrice: (cart: CART) => {
-        return computed(() => factoryParams.cartGetters.getShippingPrice(wrap(cart).value));
-      },
-      getTotalItems: (cart: CART) => {
-        return computed(() => factoryParams.cartGetters.getTotalItems(wrap(cart).value));
-      }
-    };
 
     const addToCart = async (product: PRODUCT, quantity: number) => {
       loading.value = true;
@@ -163,7 +117,7 @@ export function useCartFactory<CART, CART_ITEM, PRODUCT, COUPON>(
 
     return {
       cart: computed(() => factoryParams.cart.value),
-      cartGetters,
+      cartGetters: factoryParams.cartGetters,
       isOnCart,
       addToCart,
       refreshCart,

@@ -7,7 +7,8 @@ const useProduct: (cacheId: string) => UseProduct<any> = useProductFactory<
 >({
   productsSearch: searchParams => {
     return Promise.resolve({ data: [{ name: 'product' + searchParams }], total: 1 });
-  }
+  },
+  productGetters: {} as any
 });
 
 describe('[CORE - factories] useProductFactory', () => {

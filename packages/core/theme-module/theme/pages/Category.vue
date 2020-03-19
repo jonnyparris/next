@@ -243,7 +243,7 @@ import {
   SfLoader,
   SfColor
 } from '@storefront-ui/vue';
-import { watch, computed } from '@vue/composition-api';
+import { watch } from '@vue/composition-api';
 import { getters, useCategory, useProduct } from '<%= options.composables %>';
 
 export default {
@@ -261,7 +261,7 @@ export default {
       getSlug
     } = getters.productGetters;
 
-    const { categories, search, loading } = useCategory('category-page');
+    const { categoryGetters, categories, search, loading } = useCategory('category-page');
     const { productGetters, products: categoryProducts, search: productsSearch, loading: productsLoading } = useProduct('category-products');
     search({ slug: lastSlug });
 
@@ -271,8 +271,7 @@ export default {
         productsSearch({ catId: categories.value[0].id });
       }
     });
-
-    const categoryTree = computed(() => getters.categoryGetters.getTree(categories.value[0]));
+    const categoryTree = categoryGetters.getTree(categories.value[0]);
 
     const getCategoryUrl = (slug) => `/c/${params.slug_1}/${slug}`;
     const isCategorySelected = (slug) => slug === (categories.value && categories.value[0].slug);

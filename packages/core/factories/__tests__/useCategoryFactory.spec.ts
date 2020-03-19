@@ -13,7 +13,8 @@ function createComposable() {
   params = {
     categorySearch: jest
       .fn()
-      .mockResolvedValueOnce({ id: 'mocked_removed_cart' })
+      .mockResolvedValueOnce({ id: 'mocked_removed_cart' }),
+    categoryGetters: {} as any
   };
   useCategory = useCategoryFactory<any, any, any>(params);
 }
