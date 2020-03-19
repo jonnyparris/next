@@ -159,6 +159,7 @@ export default {
       checkoutGetters,
       shippingDetails,
       chosenShippingMethod,
+      shippingMethodName,
       shippingMethods
     } = useCheckout();
     const {
@@ -172,6 +173,7 @@ export default {
       shippingDetails,
       chosenShippingMethod,
       shippingMethods,
+      shippingMethodName,
       getShippingMethodDescription,
       getShippingMethodPrice,
       getShippingMethodName,
