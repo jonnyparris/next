@@ -101,18 +101,15 @@ export default {
     } = getters.cartGetters;
 
     const { cartGetters, cart, removeFromCart, updateQuantity } = useCart();
-    const products = cartGetters.getProducts(cart);
-    const totals = cartGetters.getTotals(cart);
-    const totalItems = cartGetters.getTotalItems(cart);
 
     return {
-      products,
       removeFromCart,
       updateQuantity,
       isCartSidebarOpen,
       toggleCartSidebar,
-      totals,
-      totalItems,
+      products: cartGetters.getProducts(cart),
+      totals: cartGetters.getTotals(cart),
+      totalItems: cartGetters.getTotalItems(cart),
       cartGetters,
       getProductName,
       getProductImage,
