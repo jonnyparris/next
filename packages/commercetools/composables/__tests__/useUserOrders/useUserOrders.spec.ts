@@ -1,6 +1,10 @@
 import { useUserOrders } from '../../src';
 import { getMyOrders } from '@vue-storefront/commercetools-api';
 
+jest.mock('@vue-storefront/utils', () => ({
+  makeComputedGetters: jest.fn()
+}));
+
 jest.mock('@vue-storefront/commercetools-api', () => ({
   getMyOrders: jest.fn(async () => ({
     data: {
@@ -54,4 +58,3 @@ describe('[commercetools-composables] useUserOrders', () => {
     expect(getMyOrders).toBeCalledWith({ param: 'param1' });
   });
 });
-

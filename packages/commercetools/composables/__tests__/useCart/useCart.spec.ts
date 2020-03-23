@@ -7,6 +7,9 @@ import {
 } from '@vue-storefront/commercetools-api';
 
 jest.mock('./../../src/useCart/currentCart');
+jest.mock('@vue-storefront/utils', () => ({
+  makeComputedGetters: jest.fn()
+}));
 jest.mock('@vue-storefront/commercetools-api', () => ({
   addToCart: jest.fn(() => ({ data: { cart: 'some cart' } })),
   removeFromCart: jest.fn(() => ({ data: { cart: 'some cart' } })),

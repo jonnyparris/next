@@ -28,6 +28,9 @@ const productResponse = {
   }
 };
 
+jest.mock('@vue-storefront/utils', () => ({
+  makeComputedGetters: jest.fn()
+}));
 jest.mock('@vue-storefront/commercetools-api', () => ({
   getProduct: jest.fn(() => Promise.resolve(productResponse))
 }));

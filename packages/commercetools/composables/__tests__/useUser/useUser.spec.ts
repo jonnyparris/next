@@ -2,6 +2,9 @@ import useUser from '../../src/useUser';
 import { customerSignMeUp, customerSignMeIn, customerSignOut, customerChangeMyPassword } from '@vue-storefront/commercetools-api';
 import mountComposable from '../_mountComposable';
 
+jest.mock('@vue-storefront/utils', () => ({
+  makeComputedGetters: jest.fn()
+}));
 jest.mock('@vue-storefront/commercetools-api', () => ({
   customerSignMeUp: jest.fn(),
   customerSignMeIn: jest.fn(),

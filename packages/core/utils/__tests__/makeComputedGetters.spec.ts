@@ -1,5 +1,5 @@
 import { ref } from '@vue/composition-api';
-import { makeComputedGetters } from '../src/makeComputedGetters';
+import makeComputedGetters from '../src/makeComputedGetters';
 
 describe('[CORE core] makeComputedGetters', () => {
   beforeEach(() => {

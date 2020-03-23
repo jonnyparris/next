@@ -10,6 +10,9 @@ const categoriesResult = [
     id: 'fcd' }
 ];
 
+jest.mock('@vue-storefront/utils', () => ({
+  makeComputedGetters: jest.fn()
+}));
 jest.mock('@vue-storefront/commercetools-api', () => ({
   getCategory: jest.fn(() =>
     Promise.resolve({
