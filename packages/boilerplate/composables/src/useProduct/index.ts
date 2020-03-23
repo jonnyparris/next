@@ -6,7 +6,7 @@ import { ProductVariant } from '@vue-storefront/boilerplate-api/src/types';
 // Those inetrfaces are just recommendations.
 // Feel free to update them to match your platform specification.
 
-export default function useProduct(): UseProduct<ProductVariant, any> {
+export default function useProduct(): UseProduct<ProductVariant> {
   const products: Ref<ProductVariant[]> = ref([]);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<string> = ref(null);
