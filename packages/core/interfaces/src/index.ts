@@ -1,6 +1,6 @@
 import { Ref } from '@vue/composition-api';
 
-type ComputedProperty<T> = Readonly<Ref<Readonly<T>>>;
+export type ComputedProperty<T> = Readonly<Ref<Readonly<T>>>;
 
 export interface UseProduct<PRODUCT, PRODUCT_FILTER> {
   products: ComputedProperty<PRODUCT[]>;

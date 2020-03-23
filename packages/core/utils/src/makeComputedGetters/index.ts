@@ -1,8 +1,9 @@
-import { computed, Ref } from '@vue/composition-api';
+import { computed } from '@vue/composition-api';
+import { ComputedProperty } from '@vue-storefront/interfaces';
 import wrap from '../wrap';
 
 interface Getters {
-  [key: string]: (param: unknown, ...args: any) => Readonly<Ref<Readonly<unknown>>>;
+  [key: string]: (param: unknown, ...args: any) => ComputedProperty<any>;
 }
 export default function makeComputedGetters (getters: any): Getters {
   return Object.assign({}, ...Object.keys(getters).map(getterName => {
