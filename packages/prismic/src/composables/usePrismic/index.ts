@@ -1,9 +1,9 @@
 import { ref, Ref, computed } from '@vue/composition-api';
-import { wrap } from '@vue-storefront/utils';
 import { PrismicQuery, PrismicMeta, PrismicOptions } from '../../types';
 import { Document } from 'prismic-javascript/d.ts/documents';
 import loadDocuments from './loadDocuments';
 import { prismicGetters as prismicPlainGetters } from '../getters';
+import { wrap } from '@vue-storefront/utils';
 
 type Search = (query: PrismicQuery | PrismicQuery[], options?: PrismicOptions) => Promise<void>;
 

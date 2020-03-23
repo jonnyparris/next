@@ -37,9 +37,11 @@ export interface UseUser
     username: string;
     password: string;
     [x: string]: any;
-  }) => Promise<void>; logout: () => Promise<void>; changePassword: (currentPassword: string,
-        newPassword: string
-  ) => Promise<void>;
+  }) => Promise<void>;
+  logout: () => Promise<void>;
+  changePassword: (
+    currentPassword: string,
+    newPassword: string) => Promise<void>;
   isAuthenticated: Ref<boolean>;
   loading: ComputedProperty<boolean>;
 }

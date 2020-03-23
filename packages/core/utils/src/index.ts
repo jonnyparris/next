@@ -2,7 +2,7 @@
 
 import usePersistedState from './ssr';
 import wrap from './wrap';
-import { makeComputedGetters } from './makeComputedGetters';
+import makeComputedGetters from './makeComputedGetters';
 
 export {
   usePersistedState,
