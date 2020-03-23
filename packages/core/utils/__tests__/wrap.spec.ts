@@ -1,5 +1,5 @@
-import wrap from '../src/wrap';
 import { ref } from '@vue/composition-api';
+import wrap from '../src/wrap';
 
 describe('[CORE utils] wrap', () => {
   it('should return ref when passed ref', () => {

@@ -27,4 +27,3 @@ describe('[CORE core] makeComputedGetters', () => {
     expect(computedGetters.getProducts('param1', 'param2', 'param3').value).toEqual('param1 param2 param3');
   });
 });
-
