@@ -1,14 +1,14 @@
-import { computed, Ref } from '@vue/composition-api';
+import { computed } from '@vue/composition-api';
 import wrap from '../wrap';
 
-interface Getters<T> {
-  [key: string]: (param: T, ...args: any) => Readonly<Ref<Readonly<T | any>>>;
+interface Getters {
+  [key: string]: (param: any, ...args: any) => any;
 }
-export default function makeComputedGetters<T> (getters: Getters<T>) {
+export default function makeComputedGetters (getters: Getters) {
   return Object.assign({}, ...Object.keys(getters).map(getterName => {
     return {
       // eslint-disable-next-line no-undef
-      [getterName]: (param: T, ...args: any) => computed(() => getters[getterName](wrap(param).value, ...args))
+      [getterName]: (param: any, ...args: any) => computed(() => getters[getterName](wrap(param).value, ...args))
     };
   }));
 }

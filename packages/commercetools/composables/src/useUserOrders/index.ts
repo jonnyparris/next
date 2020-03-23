@@ -3,6 +3,7 @@ import { Order } from '../types/GraphQL';
 import { OrderSearchParams } from '../types';
 import { getMyOrders } from '@vue-storefront/commercetools-api';
 import { SearchResult } from '@vue-storefront/interfaces';
+import { makeComputedGetters } from '@vue-storefront/utils';
 import { userOrderGetters } from '../getters';
 
 const params: UseUserOrdersFactoryParams<Order, OrderSearchParams> = {
@@ -11,7 +12,7 @@ const params: UseUserOrdersFactoryParams<Order, OrderSearchParams> = {
     const { results: data, total } = result.data?.me.orders || { results: [], total: 0 };
     return { data, total };
   },
-  userOrderGetters
+  userOrderGetters: makeComputedGetters(userOrderGetters)
 };
 
 export default useUserOrdersFactory<Order, OrderSearchParams>(params);

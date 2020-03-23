@@ -174,7 +174,7 @@ export interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
   getGallery: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<UiMediaGalleryItem[]>;
   getVariants: (products: PRODUCT[] | Readonly<PRODUCT[]>, filters?: PRODUCT_FILTER) =>
     ComputedProperty<PRODUCT[]> | Readonly<PRODUCT[]>;
-  getAttributes: (product: PRODUCT[] | Readonly<PRODUCT[]>, filters?: Array<string>) =>
+  getAttributes: (products: PRODUCT[] | PRODUCT, filters?: Array<string>) =>
     ComputedProperty<Array<AgnosticProductAttribute>>;
   getDescription: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<any>;
   getCategories: (product: PRODUCT | Readonly<PRODUCT>) => ComputedProperty<string[]>;

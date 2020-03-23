@@ -4,6 +4,8 @@ import { enhanceProduct } from './../helpers/internals';
 import { ProductVariant } from './../types/GraphQL';
 import { ProductSearch } from '@vue-storefront/commercetools-api/lib/src/types/Api';
 import { SearchResult } from '@vue-storefront/interfaces';
+import { makeComputedGetters } from '@vue-storefront/utils';
+import { productGetters } from '../getters';
 
 const productsSearch = async (params: ProductSearch): Promise<SearchResult<ProductVariant>> => {
   const productResponse = await getProduct(params);
@@ -15,5 +17,6 @@ const productsSearch = async (params: ProductSearch): Promise<SearchResult<Produ
 };
 
 export default useProductFactory<ProductVariant, ProductSearch>({
-  productsSearch
+  productsSearch,
+  productGetters: makeComputedGetters(productGetters)
 });

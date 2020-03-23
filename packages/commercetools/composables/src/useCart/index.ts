@@ -1,5 +1,6 @@
 import { ref, Ref } from '@vue/composition-api';
 import { UseCart } from '@vue-storefront/interfaces';
+import { makeComputedGetters } from '@vue-storefront/utils';
 import {
   addToCart as apiAddToCart,
   removeFromCart as apiRemoveFromCart,
@@ -44,7 +45,7 @@ const params: UseCartFactoryParams<Cart, LineItem, ProductVariant, any> = {
     console.log('Mocked isOnCart', currentCart);
     return true;
   },
-  cartGetters
+  cartGetters: makeComputedGetters(cartGetters)
 };
 
 const useCart: () => UseCart<Cart, LineItem, ProductVariant, any> = useCartFactory<Cart, LineItem, ProductVariant, any>(params);
