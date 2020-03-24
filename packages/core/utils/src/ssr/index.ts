@@ -11,7 +11,7 @@ const getRootState = (vm: any) => {
   return window.__VSF_STATE__ || {};
 };
 
-const usePersistedState = (id: string) => {
+export const usePersistedState = (id: string) => {
   const vm = getCurrentInstance() as any;
   const isServer = vm.$isServer;
 
@@ -36,5 +36,3 @@ const usePersistedState = (id: string) => {
     state: getRootState(vm)[id]
   };
 };
-
-export default usePersistedState;
