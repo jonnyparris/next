@@ -1,6 +1,18 @@
 import { ref, Ref, computed } from '@vue/composition-api';
 import { UseUserOrders, SearchResult } from '@vue-storefront/interfaces';
 
+export interface UseUserOrders<ORDER> {
+  orders: ComputedProperty<ORDER[]>;
+  totalOrders: ComputedProperty<number>;
+  searchOrders: (params?: {
+    id?: any;
+    page?: number;
+    perPage?: number;
+    [x: string]: any;
+  }) => Promise<void>;
+  loading: ComputedProperty<boolean>;
+}
+
 export type UseUserOrdersFactoryParams<ORDER, ORDER_SEARCH_PARAMS> = {
   searchOrders: (params: ORDER_SEARCH_PARAMS) => Promise<SearchResult<ORDER>>;
 };

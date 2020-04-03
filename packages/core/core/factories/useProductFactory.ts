@@ -2,6 +2,21 @@ import { UseProduct, SearchResult } from '@vue-storefront/interfaces';
 import { ref, Ref, computed } from '@vue/composition-api';
 import { useSSR } from '@vue-storefront/utils';
 
+export interface UseProduct<PRODUCT> {
+  products: ComputedProperty<PRODUCT[]>;
+  totalProducts: ComputedProperty<number>;
+  search: (params: {
+    perPage?: number;
+    page?: number;
+    sort?: any;
+    term?: any;
+    filters?: any;
+    [x: string]: any;
+  }) => Promise<void>;
+  loading: ComputedProperty<boolean>;
+  [x: string]: any;
+}
+
 type SearchParams = {
   perPage?: number;
   page?: number;

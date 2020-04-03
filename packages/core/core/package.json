@@ -1,20 +1,18 @@
 {
-  "name": "@vue-storefront/factories",
-  "version": "0.0.1",
+  "name": "@vue-storefront/core",
+  "version": "2.0.0.alpha.1",
   "sideEffects": false,
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
-  "types": "lib/factories/src/index.d.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "dev": "rollup -c -w"
   },
   "dependencies": {
-    "@vue-storefront/interfaces": "^0.0.3",
-    "@vue-storefront/utils": "^0.0.3",
-    "@vue/composition-api": "^0.3.4"
+    "@vue/composition-api": "^0.4.0",
+    "vue": "^2.6.11",
+    "yarn": "^1.22.0"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.30",
@@ -25,5 +23,6 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "8d866340da30761f4f72a6d1b60f78f9665c6738"
 }
