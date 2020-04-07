@@ -76,5 +76,5 @@ enum AgnosticFilterBase {
 ## Migration process
 
 - Add enum providing additional specific filtering bases not covered by `AgnosticFilterBase` and add it to composable type.
-- Implement getting available filters in `searchProducts` factory param (optional).
+- Implement getting available filters and chosen filters in `searchProducts` factory param (optional).
 - Implement handling filters in products search (optional).
