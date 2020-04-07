@@ -6,7 +6,7 @@ Filtering products is an important part of any products listing page. To ensure 
 
 ### Modify `useProduct` composable
 
-Since there are several factors that the filters depend on (products type, category, available products, their attributes) and the set of filters might be dynamic, but also should be configurable by the user (exclude/include attributes, define values/ranges), this feature should introduce new fields and functions in the `useProduct` composable.
+Since there are several factors that the filters depend on (products type, category, available products, their attributes) and the set of filters might be dynamic, this feature should introduce new fields in the `useProduct` composable, those are `availableFilters` and `chosenFilters`, like in the example below.
 
 **New interface**:
 
@@ -14,7 +14,8 @@ Since there are several factors that the filters depend on (products type, categ
 export interface UseProduct<PRODUCT, FILTER_BASE> {
   products: ComputedProperty<PRODUCT[]>;
   totalProducts: ComputedProperty<number>;
-  filters: ComputedProperty<Filter<FILTER_BASE>[]>;
+  availableFilters: ComputedProperty<Filter<FILTER_BASE>[]>;
+  chosenFilters: ComputedProperty<Filter<FILTER_BASE>[]>
   search: (params: {
     perPage?: number;
     page?: number;
@@ -23,23 +24,19 @@ export interface UseProduct<PRODUCT, FILTER_BASE> {
     filters?: Filter<FILTER_BASE>[];
     [x: string]: any;
   }) => Promise<void>;
-  setFilters: (filters: Filter<FILTER_BASE>[]) => Promise<void>;
   loading: ComputedProperty<boolean>;
   [x: string]: any;
 }
 ```
 
-**New `UseProductFactoryParams` interface**
+**`UseProductFactoryParams` interface**
 
-Loading filters, their possible values, counts, etc. will require an integration-specific function that will deliver that data.
-It will receive search params to be able to fetch filters accordingly eg. to the category.
+Loading filters, their possible values, counts, etc. will require an integration-specific logic that will be part of the search function, so the factory params interface stays intact, but we need a new interface for search function result:
 
 ```typescript
-export type UseProductFactoryParams<PRODUCT, PRODUCT_SEARCH_PARAMS extends SearchParams, FILTER_BASE> = {
-  productsSearch: (searchParams: PRODUCT_SEARCH_PARAMS) => Promise<SearchResult<PRODUCT>>;
-  // To determine what are available filters and let `setFilters` only set a subset of them
-  getAvailableFilters: (searchParams: PRODUCT_SEARCH_PARAMS) => Promise<Filter<FILTER_BASE>[]>
-};
+export interface FilteredSearchResult<T, FILTER_BASE> extends SearchResult<T> {
+  availableFilters: Filter<FILTER_BASE>[];
+}
 ```
 
 ### Filter interface
@@ -78,5 +75,6 @@ enum AgnosticFilterBase {
 
 ## Migration process
 
-- Add new param function (`getAvailableFilters`) to `useProduct` params for the factory.
-- Add enum providing additional specific filtering bases not covered by `AgnosticFilterBase`.
+- Add enum providing additional specific filtering bases not covered by `AgnosticFilterBase` and add it to composable type.
+- Implement getting available filters in `searchProducts` factory param (optional).
+- Implement handling filters in products search (optional).
