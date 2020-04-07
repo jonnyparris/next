@@ -15,7 +15,7 @@ export interface UseProduct<PRODUCT, FILTER_BASE> {
   products: ComputedProperty<PRODUCT[]>;
   totalProducts: ComputedProperty<number>;
   availableFilters: ComputedProperty<Filter<FILTER_BASE>[]>;
-  chosenFilters: ComputedProperty<Filter<FILTER_BASE>[]>
+  selectedFilters: ComputedProperty<Filter<FILTER_BASE>[]>
   search: (params: {
     perPage?: number;
     page?: number;
@@ -36,6 +36,7 @@ Loading filters, their possible values, counts, etc. will require an integration
 ```typescript
 export interface FilteredSearchResult<T, FILTER_BASE> extends SearchResult<T> {
   availableFilters: Filter<FILTER_BASE>[];
+  selectedFilters: Filter<FILTER_BASE>[];
 }
 ```
 
@@ -76,5 +77,5 @@ enum AgnosticFilterBase {
 ## Migration process
 
 - Add enum providing additional specific filtering bases not covered by `AgnosticFilterBase` and add it to composable type.
-- Implement getting available filters and chosen filters in `searchProducts` factory param (optional).
+- Implement getting available filters in `searchProducts` factory param (optional).
 - Implement handling filters in products search (optional).
