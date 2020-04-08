@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@vue-storefront/interfaces": "^0.0.3",
-    "@vue-storefront/utils": "^0.0.3",
+    "@vue-storefront/utils": "https://gitpkg.now.sh/jonnyparris/next/packages/core/utils?master",
     "@vue/composition-api": "^0.3.4"
   },
   "devDependencies": {
